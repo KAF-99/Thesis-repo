@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "thesis-swap-forecasting"
+version = "0.1.0"
+description = "Master's thesis: out-of-sample forecasting of interest-rate swap changes (HTBoost, linear, and simple-rule benchmarks) on a shared evaluation harness."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "pandas",
+    "scipy",
+    "scikit-learn",
+    "statsmodels",
+    "matplotlib",
+]
+
+[project.optional-dependencies]
+# Notebook tooling (Jupyter + output stripping for clean diffs).
+notebooks = ["jupyter", "nbstripout"]
+# The gradient-boosting notebooks call HTBoost via the Julia bridge; install only
+# in an environment that has Julia + HybridTreeBoosting available.
+htboost = ["juliacall"]
+
+# ── Import root: `src` IS a package; code uses `from src.xxx import ...` ──────
+# (Confirmed by grepping the notebooks and src/.) So we list the package and its
+# subpackages explicitly and do NOT remap the import root.
+[tool.setuptools]
+packages = [
+    "src",
+    "src.data",
+    "src.features",
+    "src.models",
+    "src.audit",
+    "src.evaluation",
+]
+
+# ── Alternative (NOT used) ────────────────────────────────────────────────────
+# If the code instead imported `from data.bloomberg import ...` etc. (i.e. `src`
+# as the import root, no `src.` prefix), the layout would be:
+#   [tool.setuptools]
+#   package-dir = {"" = "src"}
+#   packages = ["data", "features", "models", "audit", "evaluation"]
+# This repo does NOT use that form.

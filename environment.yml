@@ -1,0 +1,19 @@
+name: thesis
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - numpy
+  - pandas
+  - scipy
+  - scikit-learn
+  - statsmodels
+  - matplotlib
+  - jupyter
+  - pip
+  - pip:
+      - nbstripout
+      # HTBoost notebooks only: requires a working Julia + HybridTreeBoosting install.
+      # - juliacall
+# After `conda env create -f environment.yml && conda activate thesis`, run
+# `pip install -e .` to install the `src` package in editable mode.

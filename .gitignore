@@ -1,0 +1,52 @@
+# ── Licensed data — NEVER commit raw Bloomberg/licensed CSVs ─────────────────
+# Ignore everything under data/, then re-include only: the directory READMEs
+# (provenance) and the shared, regenerable Norway cache (public-API data).
+data/**
+!data/raw/
+!data/cache/
+!data/raw/README.md
+!data/cache/README.md
+!data/cache/norway_raw_features.csv
+
+# Any stray licensed-data file types anywhere (defence in depth — the clean-copy
+# allow-list is the primary boundary; these are belt-and-braces).
+*.xlsx
+*.parquet
+*.pkl
+*.zip
+# CSVs are blanket-ignored except the whitelisted Norway cache above.
+*.csv
+!data/cache/norway_raw_features.csv
+
+# ── Python ───────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.eggs/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# ── Environments ─────────────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+.python-version
+
+# ── Jupyter ──────────────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+
+# ── Editor / OS ──────────────────────────────────────────────────────────────
+.DS_Store
+.vscode/
+.idea/
+
+# ── Run outputs (results dirs, figures) — keep the repo code-only ────────────
+htboost_results_*/
+*_results_*/
+ch5_outputs/
+ch7_outputs/
+*.png
+*.pdf
