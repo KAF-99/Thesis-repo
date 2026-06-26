@@ -32,7 +32,7 @@ data/cache/              Norway public-API cache (committed) + protocol README
 thesis_eval.py           Back-compat shim -> src.evaluation.metrics
 htb_metrics.py           Back-compat shim -> src.evaluation.metrics (GB notebooks)
 thesis_style.py          Shared Matplotlib figure style + save_fig
-data_loader.py           Legacy loader still imported by the model notebooks (see note below)
+data_loader.py           Back-compat shim -> src.data.bloomberg (portable, config-driven paths)
 ```
 
 ## Setup
@@ -78,10 +78,32 @@ collaborator keeps the licensed CSVs locally and nothing proprietary is committe
 - **Shared metrics schema** so per-security, pooled, linear and simple-rule rows
   concatenate with zero reconciliation.
 
+### Methodological decisions (do not silently revert)
+
+These are deliberate analysis choices, not incidental implementation details. A
+future refactor that "simplifies" them changes published results — keep them explicit.
+
+- **τ^w aggregation reads the package `gavgtau`.** Both gradient-boosting notebooks
+  report the HTBoost weighted-smoothness diagnostic τ^w by reading the package scalar
+  `gavgtau` (paper eq. 19 + footnote 8) via `src/models/tau.py::extract_weighted_tau`,
+  keeping a cap-40 importance-weighted geometric mean only as a logged cross-check. The
+  pooled notebook previously **recomputed** that geometric mean (its field list omitted
+  `gavgtau`); it was deliberately aligned to the per-security `gavgtau` definition.
+  Reverting to a recomputed mean silently changes the reported τ^w.
+- **MTC family scope is dual-mode and intentional.** `apply_mtc_family(df, schemes,
+  label, *, model_kind=None)` applies Bonferroni + BH-FDR within one family.
+  `model_kind=None` **pools all estimators** into a single family over
+  {horizon × tenor × regime} (used by the mean-reversion and momentum notebooks);
+  `model_kind=<kind>` restricts the family to **one estimator** (used by the linear
+  notebook, called once per OLS / Elastic Net). Pooled vs per-estimator changes the
+  family size N and therefore which results survive correction — each notebook keeps
+  the mode it was written for; do not unify them.
+
 ## Note on `data_loader.py`
 
-The five model notebooks still `import` the legacy `data_loader.py`, which currently
-**hard-codes a local absolute data path**. Set `THESIS_DATA_PATH` and/or pass an
-explicit `data_path=` (or migrate those notebooks to `src.data.bloomberg.load_data`,
-which `notebooks/01_build_dataset.ipynb` already uses) before running on another
-machine.
+`data_loader.py` is a thin **backward-compatibility shim** that re-exports
+`src.data.bloomberg` (`load_data`, `_parse_bloomberg_date`, `_load_simple_csv`) and
+`MATURITY_NAMES`, so the model notebooks' `from data_loader import ...` keep working
+while resolving the data directory via `THESIS_DATA_PATH` (default `./data/raw`) on any
+machine — **there is no hard-coded path**. New code should import from
+`src.data.bloomberg` / `src.config` directly.
