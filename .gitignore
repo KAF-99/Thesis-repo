@@ -52,12 +52,15 @@ ch7_outputs/
 *.pdf
 
 # ── Committed derived results (our own output, not licensed data) ────────────
-# Default-deny everything under results/, then allow only result CSVs + manifest.
-results/**
-!results/
-!results/**/
-!results/**/*.csv
-!results/MANIFEST.md
+# Ignore any results/ dir (run output, e.g. notebooks/results/), then re-carve-out
+# ONLY the repo-root results/ (anchored with a leading slash) for committed result
+# CSVs + manifest. The previous unanchored !results/ leaked nested results/ dirs.
+**/results/
+!/results/
+/results/**
+!/results/**/
+!/results/**/*.csv
+!/results/MANIFEST.md
 # Belt-and-braces: never commit importance pickles or pilot scratch.
 results/**/*.pkl
 results/**/_pilot/**
