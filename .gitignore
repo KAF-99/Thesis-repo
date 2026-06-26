@@ -50,3 +50,14 @@ ch5_outputs/
 ch7_outputs/
 *.png
 *.pdf
+
+# ── Committed derived results (our own output, not licensed data) ────────────
+# Default-deny everything under results/, then allow only result CSVs + manifest.
+results/**
+!results/
+!results/**/
+!results/**/*.csv
+!results/MANIFEST.md
+# Belt-and-braces: never commit importance pickles or pilot scratch.
+results/**/*.pkl
+results/**/_pilot/**

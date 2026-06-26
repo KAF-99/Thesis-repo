@@ -48,6 +48,12 @@ Run-protocol constants (evaluation harness)
 
 import os
 import re
+import socket
+
+# Per-machine identifier: env var THESIS_MACHINE_ID overrides the hostname; used to
+# stamp per-machine result files so parallel machines never collide on push.
+_raw_machine = os.environ.get("THESIS_MACHINE_ID") or socket.gethostname()
+MACHINE_ID = re.sub(r"[^A-Za-z0-9_-]", "-", _raw_machine) or "unknown"
 
 DATA_PATH = os.environ.get("THESIS_DATA_PATH", "./data/raw")
 
