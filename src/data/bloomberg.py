@@ -38,8 +38,27 @@ def _load_simple_csv(path: str) -> pd.DataFrame:
     return df.dropna(subset=["Date"]).set_index("Date").sort_index()
 
 
+def _require_data_dir(data_path: str) -> None:
+    """Fail early with an actionable message if the data dir is missing or has no CSVs.
+
+    The common cause is ``THESIS_DATA_PATH`` not being inherited by a GUI Jupyter
+    kernel (so the default ``./data/raw`` is used); without this guard the failure
+    surfaces late and cryptically deep inside :func:`load_data`.
+    """
+    env = os.environ.get("THESIS_DATA_PATH")
+    where = (f"THESIS_DATA_PATH points to '{data_path}'" if env
+             else f"THESIS_DATA_PATH is not set, so the default '{data_path}' is used")
+    hint = ("Set it to your Bloomberg data directory, e.g.:\n"
+            "    export THESIS_DATA_PATH=/path/to/Data")
+    if not os.path.isdir(data_path):
+        raise FileNotFoundError(f"{where}, but that directory does not exist. {hint}")
+    if not any(f.endswith(".csv") for f in os.listdir(data_path)):
+        raise FileNotFoundError(f"{where}, but it contains no .csv files. {hint}")
+
+
 def load_data(data_path: str = config.DATA_PATH) -> pd.DataFrame:
     """Load and merge swap CSVs, interest rate files, and macro/market variables."""
+    _require_data_dir(data_path)
     files = [f for f in os.listdir(data_path) if f.endswith(".csv")]
     swap_files = [f for f in files if f not in config.SWAP_SKIP_FILES]
 

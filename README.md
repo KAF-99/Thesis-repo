@@ -52,9 +52,32 @@ pip install -e .            # core: numpy/pandas/scipy/scikit-learn/statsmodels/
 pip install -e ".[notebooks]"   # + jupyter, nbstripout
 ```
 
-The HTBoost notebooks additionally require a Julia environment with
-`HybridTreeBoosting` and the `juliacall` bridge (`pip install -e ".[htboost]"`);
-the linear and simple-rule notebooks run on pure Python.
+### HTBoost (Julia) — extra one-time step
+
+The HTBoost notebooks call the Julia `HybridTreeBoosting` package through the
+`juliacall` bridge; the linear and simple-rule notebooks are pure Python and need
+none of this.
+
+```bash
+pip install -e ".[htboost]"        # installs the juliacall Python bridge only
+```
+
+`juliacall` creates an **isolated Julia project per Python environment**
+(`$CONDA_PREFIX/julia_env`), so a fresh clone + `conda env create` does **not** yet
+contain `HybridTreeBoosting`. Add it to that project once:
+
+```bash
+python scripts/setup_htboost.py    # idempotent; pulls v0.1.0 from the General registry
+```
+
+`HybridTreeBoosting` (Paolo Giordani, BI; UUID `a7b84c78-fd94-4b48-aa74-d26ca7b1659c`)
+is a **registered** package, so `Pkg.add("HybridTreeBoosting")` resolves from the
+General registry — no git URL required. First run precompiles (~minutes); later
+launches are fast. Verify:
+
+```bash
+python -c "from juliacall import Main as jl; jl.seval('using HybridTreeBoosting'); print('HTBoost OK')"
+```
 
 ## Data
 
@@ -66,6 +89,10 @@ export THESIS_DATA_PATH=/path/to/your/Data    # default: ./data/raw
 
 `src/config.py` reads `THESIS_DATA_PATH` (falling back to `./data/raw`), so each
 collaborator keeps the licensed CSVs locally and nothing proprietary is committed.
+
+> **GUI Jupyter:** kernels don't always inherit shell exports — either launch
+> `jupyter lab` from the shell where `THESIS_DATA_PATH` is set, or set it in-notebook
+> (`os.environ["THESIS_DATA_PATH"] = "/path/to/Data"`) before importing the loaders.
 
 ## Reproducibility invariants
 
