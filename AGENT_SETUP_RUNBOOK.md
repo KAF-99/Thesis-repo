@@ -8,7 +8,7 @@
 
 Repo: **https://github.com/KAF-99/Thesis-repo** (private).
 Canonical reproducibility fingerprint (compare at the end — all must match):
-`df_raw.hash16 = e7cbef30f804bae4`, `config.hash16 = 2ef2eace9701cfcc`,
+`df_raw.hash16 = bf41b0b517d13814`, `config.hash16 = 2ef2eace9701cfcc`,
 `feature_spec.hash16 = a6b89af4849951bd`, `tau_w ≈ 2.287`.
 
 ---
@@ -146,7 +146,7 @@ FINGERPRINT block back to the human.** Cross-check against the canonical:
 
 | Field | Must match? |
 |---|---|
-| `df_raw.hash16 = e7cbef30f804bae4` | **YES, exactly.** Column load order is now sorted/deterministic, so this hash is portable across machines. If it differs while config/feature_spec/τ match, it's a pandas-version datetime difference — see G7. |
+| `df_raw.hash16 = bf41b0b517d13814` | **YES, exactly.** Column load order is sorted/deterministic AND floats are parsed with `float_precision="round_trip"`, so this hash is portable across machines. If it differs while config/feature_spec/τ match, it's a pandas-version datetime difference — see G7. |
 | `config.hash16 = 2ef2eace9701cfcc` | **YES, exactly** (OS-independent) |
 | `feature_spec.hash16 = a6b89af4849951bd` | **YES, exactly** (OS-independent) |
 | `tau_w ≈ 2.287` | within ~1e-6 (cross-OS FP/BLAS) |
@@ -176,5 +176,5 @@ report it but it is not a blocker.
 - **G4 — `np.linalg.svd` crash / fatal `0xc06d007f` (Windows) — BLAS clash.** numpy/scipy are on different LAPACKs. Re-create the env from `environment.yml` (pins `libblas=*=*openblas`); never `pip install` numpy/scipy/scikit-learn. The script's step (f) BLAS test catches this.
 - **G5 — Julia `Package DataFrames/HybridTreeBoosting not found` — juliacall project not wired.** `python scripts/setup_htboost.py` sets `PYTHON_JULIAPKG_PROJECT` + writes conda activate.d hooks; **reopen the shell** afterward. Confirm `PYTHON_JULIAPKG_PROJECT` points at `…/envs/thesis/julia_env`.
 - **G6 — GUI Jupyter kernel doesn't see `THESIS_DATA_PATH`.** Kernels don't inherit shell exports; the runbook uses captured `run_handshake.py` from a shell where the var is set. In a notebook, set `os.environ["THESIS_DATA_PATH"]=...` before importing the loaders.
-- **G7 — `df_raw.hash16` ≠ `e7cbef30f804bae4` but config/feature_spec/τ match.** Column load order is now deterministic (sorted in `load_data`), so a remaining mismatch means a pandas-version datetime-unit difference (`datetime64[ns]` vs `[us]`), which changes `pd.util.hash_pandas_object` even with identical values. Re-create the env from `environment.yml` so pandas matches the fleet; report it, but config/feature_spec/τ remain the definitive reproducibility check — not a blocker.
+- **G7 — `df_raw.hash16` ≠ `bf41b0b517d13814` but config/feature_spec/τ match.** Column load order is deterministic (sorted in `load_data`) and floats use `float_precision="round_trip"` (so cross-arch ULP parse differences are gone), so a remaining mismatch means a pandas-version datetime-unit difference (`datetime64[ns]` vs `[us]`), which changes `pd.util.hash_pandas_object` even with identical values. Re-create the env from `environment.yml` so pandas matches the fleet; report it, but config/feature_spec/τ remain the definitive reproducibility check — not a blocker.
 - **G8 — `df_raw.shape = (8183, 138)` instead of 266.** The norway augmentation didn't run (offline cache path). Ensure the clone is current and `NORWAY_LIVE_FETCH` is unset (cache-first builds 266 from the committed `data/cache/norway_raw_features.csv`).
