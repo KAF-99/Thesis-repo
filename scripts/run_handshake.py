@@ -72,10 +72,13 @@ def main() -> int:
 
     repo_root = _repo_root(nb_path.parent)
 
-    # Tee destination, derived from the notebook's own OUT_DIR.
+    # Tee destination, derived from the notebook's own OUT_DIR. Allow an optional f-string
+    # prefix (OUT_DIR = f'{_ROOT}/results/...') and strip the {_ROOT} anchor, since the path
+    # is then taken relative to repo_root anyway.
     code = "\n".join(c.source for c in nb.cells if c.cell_type == "code")
-    m = re.search(r"OUT_DIR\s*=\s*['\"]([^'\"]+)['\"]", code)
+    m = re.search(r"OUT_DIR\s*=\s*f?['\"]([^'\"]+)['\"]", code)
     out_dir = m.group(1) if m else "results/_handshake"
+    out_dir = out_dir.replace("{_ROOT}/", "").replace("{_ROOT}", "").lstrip("/")
     log_dir = repo_root / out_dir / "_pilot"
     log_dir.mkdir(parents=True, exist_ok=True)
     log_path = log_dir / f"handshake_{nb_path.stem}_{_machine_id()}.log"
