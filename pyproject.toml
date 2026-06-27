@@ -9,10 +9,11 @@ description = "Master's thesis: out-of-sample forecasting of interest-rate swap 
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "numpy",
+    # NOTE: numpy / scipy / scikit-learn are intentionally NOT listed here. They are
+    # provided by conda-forge (OpenBLAS-pinned in environment.yml). Listing them would let
+    # `pip install -e .` pull pip wheels that bundle a SECOND BLAS/LAPACK, which clashes with
+    # the conda numpy and crashes np.linalg.svd (the BLAS trap). Install the env via conda.
     "pandas",
-    "scipy",
-    "scikit-learn",
     "statsmodels",
     "matplotlib",
 ]
