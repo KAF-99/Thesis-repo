@@ -59,7 +59,12 @@ def _require_data_dir(data_path: str) -> None:
 def load_data(data_path: str = config.DATA_PATH) -> pd.DataFrame:
     """Load and merge swap CSVs, interest rate files, and macro/market variables."""
     _require_data_dir(data_path)
-    files = [f for f in os.listdir(data_path) if f.endswith(".csv")]
+    # sorted() makes the per-country load order — and therefore df_raw's column order —
+    # deterministic across machines. os.listdir is OS-/filesystem-dependent (NTFS-alphabetical
+    # on Windows vs APFS order on macOS), which gave identical values in a different column
+    # ORDER, changing df_raw's pd.util.hash_pandas_object hash across machines (benign for the
+    # name-based fit, but a real non-determinism bug). Sorting fixes the hash portably.
+    files = sorted(f for f in os.listdir(data_path) if f.endswith(".csv"))
     swap_files = [f for f in files if f not in config.SWAP_SKIP_FILES]
 
     df_list = []
