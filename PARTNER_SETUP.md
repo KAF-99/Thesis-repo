@@ -35,11 +35,16 @@ Run PowerShell (no admin needed for `winget --scope user`; use an elevated shell
 package asks for it).
 
 ```powershell
-winget install -e --id Git.Git
-winget install -e --id GitHub.cli
-winget install -e --id Anaconda.Miniconda3
-winget install -e --id Julia.Juliaup
+# --accept-*-agreements avoids the interactive ToS prompt that otherwise stalls scripts/agents
+winget install -e --id Git.Git              --accept-source-agreements --accept-package-agreements
+winget install -e --id GitHub.cli           --accept-source-agreements --accept-package-agreements
+winget install -e --id Anaconda.Miniconda3  --accept-source-agreements --accept-package-agreements
+winget install -e --id Julia.Juliaup        --accept-source-agreements --accept-package-agreements
 ```
+
+> Exact winget IDs (case-sensitive): `Git.Git`, `GitHub.cli`, `Anaconda.Miniconda3`,
+> `Julia.Juliaup`. If a `winget` run reports "agreements not accepted", re-run with both
+> `--accept-source-agreements --accept-package-agreements`.
 
 Close and reopen PowerShell so PATH updates. Then initialise conda for PowerShell once:
 
@@ -128,6 +133,13 @@ pip install -e ".[htboost]"
 > If `conda activate` errors on Windows, reopen PowerShell after the `conda init powershell`
 > step.
 
+> **⚠️ BLAS — do NOT `pip install` numpy / scipy / scikit-learn.** `environment.yml` pins
+> them to conda-forge **OpenBLAS** (`libblas=*=*openblas`). A pip-installed scipy bundles a
+> *second* LAPACK (its own OpenBLAS) which clashes with conda numpy and **crashes
+> `np.linalg.svd`** (a fatal `0xc06d007f` on Windows) — and it only shows up at the PCA/SVD
+> step deep in a GB notebook. `pip install -e .` is fine (it installs only the `src`
+> package; the conda numpy/scipy already satisfy its deps). The §7 smoke test catches this.
+
 **Verify:** `python -c "import src, numpy, pandas, scipy, sklearn, statsmodels; print('core OK')"`
 
 ---
@@ -142,13 +154,26 @@ pulls **HybridTreeBoosting v0.1.0** from the General registry — no git URL nee
 python scripts/setup_htboost.py
 ```
 
-First run downloads + precompiles HTBoost and its deps (~minutes). **Verify end-to-end:**
+This does **two** things (both idempotent):
+1. **Wires `PYTHON_JULIAPKG_PROJECT`** to `$CONDA_PREFIX/julia_env` and writes conda
+   **activate.d hooks** (`sh`/`bat`/`ps1`) so every future shell — including VS Code-launched
+   kernels — points juliacall at this env's Julia project. Without this, a fresh
+   Windows/VS Code shell can fail to resolve the direct Julia deps (`DataFrames`,
+   `HybridTreeBoosting`). **Reopen the shell / `conda activate thesis` again** after this
+   runs so the hook takes effect.
+2. **Installs + precompiles HybridTreeBoosting** (first run ~minutes).
+
+**Verify end-to-end** (both the env-project wiring and HTBoost) — after re-activating:
 
 ```text
-python -c "from juliacall import Main as jl; jl.seval('using HybridTreeBoosting'); print('HTBoost OK')"
+python -c "from juliacall import Main as jl; jl.seval('using DataFrames'); jl.seval('using HybridTreeBoosting'); print('HTBoost OK')"
 ```
 
-Expect the last line to be exactly: **`HTBoost OK`**.
+Expect the last line to be exactly: **`HTBoost OK`**. If instead you see a Julia
+`ArgumentError: Package DataFrames/HybridTreeBoosting not found`, the project isn't wired —
+confirm `echo $PYTHON_JULIAPKG_PROJECT` (macOS) / `echo $env:PYTHON_JULIAPKG_PROJECT`
+(PowerShell) points at `.../envs/thesis/julia_env`, re-run `python scripts/setup_htboost.py`,
+and reopen the shell.
 
 ---
 
@@ -219,12 +244,27 @@ telling you to set `THESIS_DATA_PATH` (instead of a cryptic `./data/raw` error).
 
 ### Tier 1 — env + import sanity (NO data required)
 
-Run from the repo root with the `thesis` env active:
+Run from the repo root with the `thesis` env active. **Run the smoke test FIRST** — it
+catches the two environment gaps (BLAS clash, juliacall project) in seconds, before you
+spend ~8 min in a notebook only to crash at the PCA/SVD step:
 
 ```text
+# (a) BLAS / LAPACK smoke test — catches the np.linalg.svd crash (GAP B)
+python -c "import numpy as np; np.linalg.svd(np.random.rand(64,64)); import scipy.linalg as sl; sl.svd(np.random.rand(64,64)); import sklearn; print('BLAS OK')"
+
+# (b) juliacall project smoke test — catches unresolved Julia deps (GAP A)
+python -c "from juliacall import Main as jl; jl.seval('using DataFrames'); jl.seval('using HybridTreeBoosting'); print('HTBoost OK')"
+
+# (c) core imports
 python -c "import src, numpy, pandas, scipy, sklearn, statsmodels; print('core OK')"
-python -c "from juliacall import Main as jl; jl.seval('using HybridTreeBoosting'); print('HTBoost OK')"
 ```
+
+Expect three lines: **`BLAS OK`**, **`HTBoost OK`**, **`core OK`**.
+- If (a) crashes/segfaults (Windows: a fatal `0xc06d007f`), you have the **BLAS clash** —
+  numpy/scipy are not on the same OpenBLAS. Re-create the env from `environment.yml` (which
+  pins `libblas=*=*openblas`) and do **not** `pip install` numpy/scipy/scikit-learn (§3).
+- If (b) raises a Julia `Package ... not found`, the **juliacall project isn't wired** —
+  re-run `python scripts/setup_htboost.py` and reopen the shell (§4).
 
 Optional — confirm the data guard is wired (expected to raise a *clear* error, since no
 data is set here):
@@ -252,26 +292,42 @@ This is the real cross-machine validation. Do it for **both** GB notebooks:
    **~8-minute pilot fit** (Part B) and prints a **`PILOT OK`** (or `PILOT FAIL`) line.
 6. **Do NOT run any cell below the handshake** — that would start the full multi-hour sweep.
 
+**Headless alternative (no GUI, never loses the fingerprint to a timeout):**
+
+```text
+# offline (cache-first) — leave NORWAY_LIVE_FETCH unset; set THESIS_DATA_PATH first
+python scripts/run_handshake.py notebooks/model_htboost_v5_clean.ipynb
+python scripts/run_handshake.py notebooks/model_htboost_pooled_v5.ipynb
+```
+
+It truncates the notebook to the handshake cell (no sweep), runs it, prints the
+FINGERPRINT + PILOT line, and tees them to `results/<OUT_DIR>/_pilot/handshake_*.log`
+(so even an interrupted run keeps the Part-A FINGERPRINT). Pass `HANDSHAKE_KERNEL=<name>`
+if the notebook's saved kernel isn't on your machine.
+
 **Capture and send** (for each GB notebook): the entire `FINGERPRINT:` block **and** the
-final `PILOT OK ...` line. Example shape of what to copy:
+final `PILOT OK ...` line. Reference values from Knut's Mac (offline cache-first build),
+for self-checking before you send:
 
 ```text
 FINGERPRINT:
-  df_raw.shape        = (8183, 138)
-  df_raw.hash16       = <16 hex>
-  df_raw.index_min    = ...
-  df_raw.index_max    = ...
-  panel.hash16        = <16 hex>   (or "informational")
-  config.hash16       = <16 hex>
-  feature_spec.n      = <int>
-  feature_spec.hash16 = <16 hex>
+  df_raw.shape        = (8183, 266)
+  df_raw.hash16       = c6de45ac358281dc      # matches only if your data copy is byte-identical (watch CRLF)
+  df_raw.index_min    = 2000-01-02 00:00:00
+  df_raw.index_max    = 2026-12-05 00:00:00
+  panel               = (not built at handshake point — informational)
+  config.hash16       = 2ef2eace9701cfcc      # MUST match exactly (OS-independent)
+  feature_spec.n      = 30
+  feature_spec.hash16 = a6b89af4849951bd      # MUST match exactly (OS-independent)
   MACHINE_ID          = <your machine id>
   versions            = numpy x / pandas y / scipy z
   julia / HTBoost     = julia 1.x / HybridTreeBoosting 0.1.0
-PILOT OK (modality=accurate, ~8m): all output fields present (NOR_10Y H=21 fold=Hiking; ... tau_w=<value>; ...)
+PILOT OK (modality=accurate, ~8m): all output fields present (NOR_10Y H=21 fold=Hiking; ... tau_w≈2.287; ...)
 ```
 
-`PILOT FAIL: ...` names the exact missing field — fix that and re-run the handshake cell.
+`df_raw.shape` must be **(8183, 266)** — if you see **(8183, 138)**, the Norway feature
+augmentation didn't run (offline cache path); confirm you pulled `498a383`+ and that the
+smoke test (§7a/b) passed. `PILOT FAIL: ...` names the exact missing field — fix and re-run.
 
 ---
 
@@ -327,6 +383,21 @@ pilot in the handshake is the only fit you run for validation.
   and make sure the data CSVs were copied **without** newline conversion.
 - If `conda` or `julia` "isn't recognized", reopen PowerShell (PATH updates after install)
   and ensure `conda init powershell` ran (§1).
+- `winget` stalling on a license prompt → re-run with `--accept-source-agreements
+  --accept-package-agreements` (§1).
+
+**(f) `np.linalg.svd` crash / fatal `0xc06d007f` (Windows) at the PCA step — BLAS clash.**
+numpy and scipy are linked against *different* LAPACKs (conda MKL + a pip-bundled
+OpenBLAS). Re-create the env from `environment.yml` (pins `libblas=*=*openblas`) and never
+`pip install` numpy/scipy/scikit-learn — they must come from conda-forge (§3). Confirm with
+the §7a smoke test (`BLAS OK`). The old 138-col build never reached SVD, so this stayed
+hidden until the full 266-col build.
+
+**(g) Julia `Package DataFrames/HybridTreeBoosting not found` — juliacall project not wired.**
+juliacall isn't pointed at this env's Julia project. Run `python scripts/setup_htboost.py`
+(it sets `PYTHON_JULIAPKG_PROJECT` and writes activate.d hooks), then **reopen the shell**
+so the hook fires. Confirm `$PYTHON_JULIAPKG_PROJECT` (macOS) / `$env:PYTHON_JULIAPKG_PROJECT`
+(PowerShell) points at `.../envs/thesis/julia_env`, then re-run the §7b smoke test.
 
 ---
 

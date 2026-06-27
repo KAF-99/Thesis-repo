@@ -3,9 +3,15 @@ channels:
   - conda-forge
 dependencies:
   - python=3.11
+  # Pin ONE consistent BLAS/LAPACK (OpenBLAS) for numpy/scipy/scikit-learn. Mixing a
+  # conda numpy (MKL) with a pip-installed scipy (bundled OpenBLAS) puts two LAPACKs in
+  # one process and crashes np.linalg.svd (fatal 0xc06d007f on Windows). It only surfaces
+  # at the PCA/SVD step, which the full 266-col build reaches. Keeping libblas on openblas
+  # and numpy/scipy/scikit-learn ALL from conda-forge (never pip) keeps a single LAPACK.
+  - libblas=*=*openblas
   - numpy
   - pandas
-  - scipy
+  - scipy            # from conda-forge ONLY — do not let pip install scipy (BLAS clash)
   - scikit-learn
   - statsmodels
   - matplotlib
