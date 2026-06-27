@@ -9,9 +9,11 @@ Does two things, both idempotent:
    resolve. We set it for this process AND write conda activate.d hooks (sh/bat/ps1) so
    every future shell exports PYTHON_JULIAPKG_PROJECT=$CONDA_PREFIX/julia_env.
 
-2. GAP / HTBoost — ensure the (registered) HybridTreeBoosting Julia package is present in
-   that project and precompile it. juliacall keeps an isolated Julia project per Python
-   env, so `pip install -e ".[htboost]"` installs only the bridge — not HybridTreeBoosting.
+2. GAP / HTBoost — add the FULL set of direct Julia deps the notebooks `using`
+   (HybridTreeBoosting, DataFrames, Distributed, SharedArrays, Dates, Random) to that
+   project and precompile them. juliacall keeps an isolated Julia project per Python env, so
+   `pip install -e ".[htboost]"` installs only the bridge; and `using X` needs X as a DIRECT
+   dep (transitive deps are not importable), so all six must be added explicitly.
 
 Run:  python scripts/setup_htboost.py   (thesis conda env activated)
 """
@@ -48,10 +50,13 @@ from juliacall import Main as jl  # noqa: E402  (must follow the env-var wiring 
 
 jl.seval("import Pkg")
 active = jl.seval("Base.active_project()")
-if jl.seval('haskey(Pkg.project().dependencies, "HybridTreeBoosting")'):
-    print(f"HybridTreeBoosting already present in {active}")
-else:
-    print(f"Adding HybridTreeBoosting (General registry, v0.1.0) -> {active}")
-    jl.seval('Pkg.add("HybridTreeBoosting")')
-jl.seval("using HybridTreeBoosting")   # precompile now so the first notebook fit isn't blocked
-print("HTBoost ready — `using HybridTreeBoosting` succeeds.")
+
+# Every `using X` in the notebooks (and the bootstrap smoke test) needs X to be a DIRECT
+# dependency of this env's Julia project — a transitive dep (e.g. DataFrames pulled in by
+# HybridTreeBoosting) is NOT importable. The stdlibs (Distributed/SharedArrays/Dates/Random)
+# likewise must be added explicitly to land in [deps]. Pkg.add is idempotent.
+print(f"Ensuring Julia direct deps in {active}: "
+      "HybridTreeBoosting, DataFrames, Distributed, SharedArrays, Dates, Random")
+jl.seval('Pkg.add(["HybridTreeBoosting", "DataFrames", "Distributed", "SharedArrays", "Dates", "Random"])')
+jl.seval("using HybridTreeBoosting, DataFrames, Distributed, SharedArrays, Dates, Random")  # precompile all
+print("Julia deps ready — `using DataFrames, HybridTreeBoosting, Distributed, SharedArrays, Dates, Random` succeeds.")

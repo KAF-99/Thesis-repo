@@ -57,7 +57,7 @@ STEP="f) BLAS smoke test"; echo "== $STEP =="
 run python -c "import numpy as np; np.linalg.svd(np.random.rand(64,64)); import scipy.linalg as sl; sl.svd(np.random.rand(8,8)); import sklearn; print('BLAS OK')"
 
 STEP="f) Julia smoke test"; echo "== $STEP =="
-run python -c "from juliacall import Main as jl; jl.seval('using DataFrames'); jl.seval('using HybridTreeBoosting'); print('HTBoost OK')"
+run python -c "from juliacall import Main as jl; jl.seval('using HybridTreeBoosting, DataFrames, Distributed, SharedArrays, Dates, Random'); print('HTBoost OK')"
 
 echo
 echo "SETUP COMPLETE — BLAS OK / HTBoost OK"

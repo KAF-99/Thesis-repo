@@ -52,7 +52,7 @@ try {
     Step 'd) setup_htboost.py (HybridTreeBoosting + juliacall project)' { conda run -n $ENVNAME --no-capture-output python scripts/setup_htboost.py }
     Step "e) register Jupyter kernel 'Python ($ENVNAME)'" { conda run -n $ENVNAME --no-capture-output python -m ipykernel install --user --name $ENVNAME --display-name "Python ($ENVNAME)" }
     Step 'f) BLAS smoke test'  { conda run -n $ENVNAME --no-capture-output python -c "import numpy as np; np.linalg.svd(np.random.rand(64,64)); import scipy.linalg as sl; sl.svd(np.random.rand(8,8)); import sklearn; print('BLAS OK')" }
-    Step 'f) Julia smoke test' { conda run -n $ENVNAME --no-capture-output python -c "from juliacall import Main as jl; jl.seval('using DataFrames'); jl.seval('using HybridTreeBoosting'); print('HTBoost OK')" }
+    Step 'f) Julia smoke test' { conda run -n $ENVNAME --no-capture-output python -c "from juliacall import Main as jl; jl.seval('using HybridTreeBoosting, DataFrames, Distributed, SharedArrays, Dates, Random'); print('HTBoost OK')" }
 
     Write-Host ''
     Write-Host 'SETUP COMPLETE - BLAS OK / HTBoost OK'
