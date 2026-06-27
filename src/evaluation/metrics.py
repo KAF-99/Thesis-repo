@@ -159,7 +159,7 @@ SHARED_COLS = [
     'notebook', 'run_ts', 'model_kind', 'is_pooled', 'validation_scheme', 'target_kind',
     'security', 'country', 'tenor', 'horizon', 'fold', 'regime', 'sample',
     'config_hash', 'feature_count',
-    'n_obs', 'dir_acc', 'r2_raw', 'mse_model', 'mse_rw', 'ct_r2_oos',
+    'n_obs', 'dir_acc', 'dir_coverage', 'r2_raw', 'mse_model', 'mse_rw', 'mae', 'ct_r2_oos',
     'cw_stat', 'cw_pval', 'dmh_stat', 'dmh_pval', 'pt_stat', 'pt_pval',
     'binom_pval', 'n_eff',
 ]
@@ -184,23 +184,29 @@ def compute_metrics_row(y, yhat, H, meta):
     row = {c: meta.get(c) for c in SHARED_COLS if c in meta}
     row['horizon'] = int(H)
     if n < 5:
-        for c in ('n_obs', 'dir_acc', 'r2_raw', 'mse_model', 'mse_rw', 'ct_r2_oos',
-                  'cw_stat', 'cw_pval', 'dmh_stat', 'dmh_pval', 'pt_stat', 'pt_pval',
-                  'binom_pval', 'n_eff'):
+        for c in ('n_obs', 'dir_acc', 'dir_coverage', 'r2_raw', 'mse_model', 'mse_rw',
+                  'mae', 'ct_r2_oos', 'cw_stat', 'cw_pval', 'dmh_stat', 'dmh_pval',
+                  'pt_stat', 'pt_pval', 'binom_pval', 'n_eff'):
             row[c] = np.nan
         row['n_obs'] = n
         return row
     mse_model = float(np.mean((yy - yh) ** 2))
     mse_rw    = float(np.mean(yy ** 2))
+    mae       = float(np.mean(np.abs(yy - yh)))
     dir_acc   = float(np.mean(np.sign(yy) == np.sign(yh)))
+    # Directional coverage: share of SCORED obs with a nonzero forecast (≈1 for the
+    # feature-based models; <1 for the rule-based benchmarks whenever they fall back to
+    # the no-change forecast). Reported alongside dir_acc per the evaluation design.
+    dir_coverage = float(np.mean(np.sign(yh) != 0))
     cw_s, cw_p   = clark_west(yy, yh, H)
     dm_s, dm_p   = dm_harvey(yy, yh, H)
     pt_s, pt_p   = pesaran_timmermann(yy, yh)
     k = int(np.sum(np.sign(yy) == np.sign(yh)))
     binom_p = binomtest(k, n, p=0.5, alternative='greater').pvalue
     row.update({
-        'n_obs': n, 'dir_acc': dir_acc, 'r2_raw': float(r2_score(yy, yh)),
-        'mse_model': mse_model, 'mse_rw': mse_rw,
+        'n_obs': n, 'dir_acc': dir_acc, 'dir_coverage': dir_coverage,
+        'r2_raw': float(r2_score(yy, yh)),
+        'mse_model': mse_model, 'mse_rw': mse_rw, 'mae': mae,
         'ct_r2_oos': float(1 - mse_model / mse_rw) if mse_rw > 0 else np.nan,
         'cw_stat': cw_s, 'cw_pval': cw_p, 'dmh_stat': dm_s, 'dmh_pval': dm_p,
         'pt_stat': pt_s, 'pt_pval': pt_p, 'binom_pval': float(binom_p),
