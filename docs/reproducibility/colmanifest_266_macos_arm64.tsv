@@ -1,0 +1,267 @@
+column	kind	dtype	value_hash16
+AUS_10Y	raw	float64	7dc1c15fe59ff3c5
+AUS_15Y	raw	float64	dc06d70756c5f638
+AUS_1Y	raw	float64	0d1b2e853c9580e2
+AUS_30Y	raw	float64	32e57df97e26477e
+AUS_5Y	raw	float64	348f85fb45e47995
+AUS_ibor_chg_1d	derived	float64	8da46d99f19d1943
+AUS_ibor_level	derived	float64	bdf94e802e69f4f9
+AUS_ibor_mom_1m	derived	float64	0e4bc8d7523a4739
+AUS_ibor_term_slope	derived	float64	cf2a9c545f7d0bb1
+BBSW3M Index  (L1)	raw	float64	bdf94e802e69f4f9
+BISTTREF Index  (L2)	raw	float64	72ccfea12ad09684
+BRAZ_1M	raw	float64	4bb5e5d97bc1e6b3
+BRAZ_1Y	raw	float64	a258cbb5e282cb26
+BRAZ_3M	raw	float64	0c957b7c3225b4c4
+BRAZ_6M	raw	float64	583545e7f91d2cb3
+BRAZ_ibor_chg_1d	derived	float64	b708b18b42bcbe99
+BRAZ_ibor_level	derived	float64	73b227b579d4d6d1
+BRAZ_ibor_mom_1m	derived	float64	24aee66e8e963a91
+BRAZ_ibor_term_slope	derived	float64	cf2a9c545f7d0bb1
+BZDIOVRA Index  (R2)	raw	float64	73b227b579d4d6d1
+C01 Comdty  (R4)	raw	float64	77d0e03ae3d8664f
+CAN_10Y	raw	float64	353122c44a9b8270
+CAN_15Y	raw	float64	97412229452c0666
+CAN_1M	raw	float64	7679ede07f6a59b0
+CAN_1W	raw	float64	7293c82eff358e31
+CAN_1Y	raw	float64	cf92f038d918c8c6
+CAN_30Y	raw	float64	e9d58ff969f50b28
+CAN_3M	raw	float64	64344e25fccd12c2
+CAN_5Y	raw	float64	f2aba536402e7a7c
+CAN_6M	raw	float64	3799c964bea96f25
+CAN_ibor_chg_1d	derived	float64	50da574ff417e1e4
+CAN_ibor_level	derived	float64	aede7faa924ecc3a
+CAN_ibor_mom_1m	derived	float64	4b2105a7842b1c40
+CAN_ibor_term_slope	derived	float64	cf2a9c545f7d0bb1
+CAONREPO Index  (L1)	raw	float64	aede7faa924ecc3a
+CHIN_10Y	raw	float64	727fa36cdbe9a011
+CHIN_1M	raw	float64	2d6fc905ab0b0f30
+CHIN_1Y	raw	float64	0f3e8751356a8520
+CHIN_3M	raw	float64	1547416a17fbef23
+CHIN_5Y	raw	float64	e3c7cdb0dc26e7f4
+CHIN_6M	raw	float64	03c108ee3427b137
+CHIN_ibor_chg_1d	derived	float64	6f65ed12ca8f3476
+CHIN_ibor_level	derived	float64	41d5d31b9c0604b2
+CHIN_ibor_mom_1m	derived	float64	19d7d39654d5c209
+CHIN_ibor_term_slope	derived	float64	cf2a9c545f7d0bb1
+CL1 COMB Comdty  (R3)	raw	float64	9bdbf1e960685a49
+CNRR007 Index  (R2)	raw	float64	41d5d31b9c0604b2
+CPI YOY Index  (R1)	raw	float64	fdfdf54ae4a35285
+CPURNSA Index  (L3)	raw	float64	97db289cf5fe0ec8
+ECCPEMUY Index  (R1)	raw	float64	5309caf125b41cfe
+EUR001M Index	raw	float64	530cabd55d2f1573
+EUR001W Index	raw	float64	0c02068c592fd376
+EUR003M Index	raw	float64	ab6c6256e711672d
+EUR006M Index  (L1)	raw	float64	0f8dd681477531ef
+EUR_10Y	raw	float64	e3ba3307e1daf1d0
+EUR_15Y	raw	float64	71c3aa51a3918b41
+EUR_1Y	raw	float64	e6617b7e67568a82
+EUR_30Y	raw	float64	f03904ddb2b96b67
+EUR_5Y	raw	float64	ab8a73fc1d5d0a8e
+EUR_ibor_chg_1d	derived	float64	986f50eea854c54d
+EUR_ibor_level	derived	float64	0f8dd681477531ef
+EUR_ibor_mom_1m	derived	float64	c02be0cce172dd3c
+EUR_ibor_term_slope	derived	float64	b36351b56ca8a781
+GVZ Index  (R2)	raw	float64	7c081a007db3e394
+HY_spread	raw	float64	c97b38e6b5d96cea
+IG_spread	raw	float64	02e9223f1ab1790e
+JPY_10Y	raw	float64	4d223f8126b89f06
+JPY_15Y	raw	float64	045fe9f64b5a6431
+JPY_1M	raw	float64	d8528f0cfd20c267
+JPY_1W	raw	float64	818be41e9101ed88
+JPY_1Y	raw	float64	d8c2cf5061fff736
+JPY_30Y	raw	float64	b0cc51200e939063
+JPY_3M	raw	float64	821c3669090afd92
+JPY_5Y	raw	float64	f45c49b5e9a0cd54
+JPY_6M	raw	float64	1484eff776fa322a
+MOVE Index  (R3)	raw	float64	f5a257f627cbc9d9
+MUC1 Comdty  (L2)	raw	float64	9755dc9e66707c24
+MUTKCALM Index  (R1)	raw	float64	1bc20d2da8120555
+MXWO Index  (R4)	raw	float64	25dcf7b4e69c4c1c
+NAPMPMI Index  (R2)	raw	float64	a97c114ee2a41006
+NDX Index  (L4)	raw	float64	8596607cf528602e
+NEWZ_10Y	raw	float64	e3f8f038ef907d43
+NEWZ_15Y	raw	float64	ba9f179d927bff1b
+NEWZ_1Y	raw	float64	9e756b99bf296329
+NEWZ_30Y	raw	float64	3f59f9c67e77ab1d
+NEWZ_5Y	raw	float64	a2bbcf62cbead7db
+NFIX3FRA Index  (R1)	raw	float64	cf2a9c545f7d0bb1
+NFP TCH Index  (L4)	raw	float64	79a88d3a497cc2e0
+NIBOR1M Index	raw	float64	b39da53b32af25aa
+NIBOR1W Index	raw	float64	c0015ce70c0e2015
+NIBOR2M Index	raw	float64	c2f6c6e81d18c3e4
+NIBOR3M Index  (L1)	raw	float64	df9282f644db6367
+NIBOR6M Index	raw	float64	526a5a720077f975
+NOR_10Y	raw	float64	6d979513d7c21dc3
+NOR_15Y	raw	float64	b1f394f6262eac1a
+NOR_1Y	raw	float64	5b26bc771aa29466
+NOR_30Y	raw	float64	cb33df673cdcf936
+NOR_5Y	raw	float64	5a391e27e29d62a3
+NOR_ibor_chg_1d	derived	float64	96ab5a2ca6ba5d11
+NOR_ibor_level	derived	float64	df9282f644db6367
+NOR_ibor_mom_1m	derived	float64	d6d7129b31d82be5
+NOR_ibor_term_slope	derived	float64	845f298afabfd4a1
+OPECDALY Index  (R3)	raw	float64	8f4f67b08d35afc9
+OVX Index  (R3)	raw	float64	c5f8b666f7883d9a
+PCE CORE Index  (L2)	raw	float64	0e60f34e58dfc6b6
+PCE CRCH Index  (L1)	raw	float64	8eb5dc54bd771cd8
+POL_10Y	raw	float64	f3338fd7e7872c90
+POL_15Y	raw	float64	af2ecef2c9730200
+POL_1Y	raw	float64	2cb549272453edc9
+POL_5Y	raw	float64	8f6be2048bcdc600
+POL_ibor_chg_1d	derived	float64	19ce2f28054afcb0
+POL_ibor_level	derived	float64	24174e9bc4d5fa4c
+POL_ibor_mom_1m	derived	float64	c60897a3e15a7e95
+POL_ibor_term_slope	derived	float64	cf2a9c545f7d0bb1
+RVX Index  (L2)	raw	float64	dfc1c4ebc00af900
+SOFRRATE Index  (L1)	raw	float64	418d565e9b664f32
+SOFR_10Y	raw	float64	d41aa2684bd11225
+SOFR_1M	raw	float64	779f43de0055f628
+SOFR_1W	raw	float64	c005ef794e92f03e
+SOFR_1Y	raw	float64	462ece124201ab77
+SOFR_30Y	raw	float64	284905dad2ccf363
+SOFR_3M	raw	float64	0606a50509a4e8fa
+SOFR_5Y	raw	float64	630bfa3d1f395e98
+SOFR_6M	raw	float64	8dbd193f7a312129
+SOFR_ibor_chg_1d	derived	float64	0a51317d063c3e0e
+SOFR_ibor_level	derived	float64	418d565e9b664f32
+SOFR_ibor_mom_1m	derived	float64	b2bf511e21146316
+SOFR_ibor_term_slope	derived	float64	cf2a9c545f7d0bb1
+SONIA_10Y	raw	float64	573c465ef0572331
+SONIA_15Y	raw	float64	bc0be917b505cee9
+SONIA_1M	raw	float64	f7deb27b4f5ad549
+SONIA_1W	raw	float64	d00a725e395cfe63
+SONIA_1Y	raw	float64	a7986178bf154233
+SONIA_30Y	raw	float64	57cef0df11a7ee01
+SONIA_3M	raw	float64	8186b21b3ba4d2df
+SONIA_5Y	raw	float64	4543a80745ce55b6
+SONIA_6M	raw	float64	7b4a07a421fe4ce8
+SONIA_ibor_chg_1d	derived	float64	c18fb0492b5ce9e4
+SONIA_ibor_level	derived	float64	226d06718225072a
+SONIA_ibor_mom_1m	derived	float64	4136eebc046d25ce
+SONIA_ibor_term_slope	derived	float64	cf2a9c545f7d0bb1
+SONIO/N Index  (L1)	raw	float64	226d06718225072a
+SPX Index  (R4)	raw	float64	441c250f0df6cc30
+SRFXON3 Index  (L1)	raw	float64	b9f41946db34d788
+STIB3M Index  (L1)	raw	float64	b7e59116b8b33c9d
+SWE_10Y	raw	float64	d09b176121ba65f7
+SWE_15Y	raw	float64	858899002119849a
+SWE_1Y	raw	float64	727486c018de517c
+SWE_30Y	raw	float64	9c48c7bbd5477eba
+SWE_5Y	raw	float64	e47fece7b39bbbfd
+SWE_ibor_chg_1d	derived	float64	e1a151143a433628
+SWE_ibor_level	derived	float64	b7e59116b8b33c9d
+SWE_ibor_mom_1m	derived	float64	51c68fd057116ede
+SWE_ibor_term_slope	derived	float64	cf2a9c545f7d0bb1
+SWZ_10Y	raw	float64	9df5f212ea048fa9
+SWZ_15Y	raw	float64	bfcccfcecc42e886
+SWZ_1M	raw	float64	37ff47ab9e82c262
+SWZ_1W	raw	float64	2bf56e6372b0912d
+SWZ_1Y	raw	float64	ef979af9fedc8a44
+SWZ_30Y	raw	float64	a8c5a51f98f210c6
+SWZ_3M	raw	float64	c2b96a10c6e7adee
+SWZ_5Y	raw	float64	4e8983cac13c22dd
+SWZ_6M	raw	float64	7e03b451dd23cb9c
+SX5E Index  (R4)	raw	float64	bf681b33fc3cc586
+TURK_10Y	raw	float64	69719577e1ceaac3
+TURK_1M	raw	float64	16061ac6df9fd653
+TURK_1W	raw	float64	b5c895442ad4d41f
+TURK_1Y	raw	float64	df40ab20329e9d05
+TURK_3M	raw	float64	7b63af4cd5cc95ed
+TURK_5Y	raw	float64	d46a19b447b9697b
+TURK_6M	raw	float64	3a9a8b63ba92d632
+TURK_ibor_chg_1d	derived	float64	a1c242e88ef58191
+TURK_ibor_level	derived	float64	1bc20d2da8120555
+TURK_ibor_mom_1m	derived	float64	30357ffaf60bc34c
+TURK_ibor_term_slope	derived	float64	cf2a9c545f7d0bb1
+UMRTEMU Index  (R1)	raw	float64	fe4a0534869785f0
+V2X Index  (L2)	raw	float64	27309ce8c3f42a47
+VXN Index  (R2)	raw	float64	3d495e5d2ed8aa6b
+WIBR3M Index  (L1)	raw	float64	24174e9bc4d5fa4c
+^VIX	raw	float64	3bf42b24d0de282e
+breakeven_10Y	raw	float64	e67bbccecb65fbe6
+breakeven_10Y_chg_1m	derived	float64	1640db830116c757
+breakeven_10Y_level	derived	float64	1ad94325c4bc95f0
+breakeven_5Y	raw	float64	545fed84e4ae7069
+breakeven_5Y_chg_1m	derived	float64	2e19eecdd076c63c
+breakeven_5Y_level	derived	float64	aebe3bd33e792e6e
+breakeven_slope	derived	float64	d2b86d735114eb25
+copper_mom_1m	derived	float64	ebb2210aaba78b6f
+cpi_nsa_level	derived	float64	e7df80979e108b53
+cpi_yoy	derived	float64	2ecc461d985ccde0
+ecb_dfr	derived	float64	bfff017db92b3fb5
+eur_1w	derived	float64	0c02068c592fd376
+eur_3m	derived	float64	ab6c6256e711672d
+gvz_level	derived	float64	e64150005326b0d1
+hy_chg_1m	derived	float64	516bccd4c052b8de
+hy_spread	derived	float64	d5f015a931c30b8a
+ig_chg_1m	derived	float64	d01dd4383fa4bfa1
+ig_spread	derived	float64	64956d85bdd823a2
+move_chg_1d	derived	float64	4818aff36bff5c1e
+move_level	derived	float64	24d965553a5d4f81
+move_zscore	derived	float64	6c7f844432f79284
+mxwo_mom_1m	derived	float64	02f2fd9f72f85701
+mxwo_mom_3m	derived	float64	c869ea5d3df81315
+natgas_mom_1m	derived	float64	9e2516f3408a863e
+nb_eurnok	derived	float64	64a87a59268b5190
+nb_govt_10y	derived	float64	cf923a3a8f3b5553
+nb_govt_3y	derived	float64	e6c8699dc402f2e2
+nb_govt_5y	derived	float64	913f6a69f5ca26e4
+nb_i44	derived	float64	d838a3f6eb82b972
+nb_nowa	derived	float64	f42c268c2c541ca7
+nb_polrate	derived	float64	5a681047decdc0dd
+nb_usdnok	derived	float64	fd4016b58999db15
+ndx_mom_1m	derived	float64	5bfcfb98dc04ae73
+ndx_mom_3m	derived	float64	b2fc313711a1b480
+nfp_change	derived	float64	8eb2cb7bd6d81290
+nor_ecb_dfr_chg	derived	float64	46fdf636eac9638c
+nor_ecb_dfr_level	derived	float64	3be5c3edeb9d3080
+nor_eurnok_chg_1d	derived	float64	ccd49762b43521e5
+nor_eurnok_level	derived	float64	132a539179c198f6
+nor_eurnok_mom_1m	derived	float64	07a204f7b42c51f4
+nor_eurnok_mom_3m	derived	float64	4f50e56768a9558d
+nor_eurnok_rvol_20d	derived	float64	4af16df2d97cd5d9
+nor_govt_10y	derived	float64	cf923a3a8f3b5553
+nor_govt_3y	derived	float64	e6c8699dc402f2e2
+nor_govt_5y	derived	float64	913f6a69f5ca26e4
+nor_i44_chg_1d	derived	float64	6123fbb0811cb6c6
+nor_i44_level	derived	float64	2ed1cada38a89177
+nor_i44_mom_1m	derived	float64	15852c8e876a0a75
+nor_i44_mom_3m	derived	float64	894bba7f0a78a1e8
+nor_i44_rvol_20d	derived	float64	0a2577e18a97be20
+nor_ibor_1m	derived	float64	b39da53b32af25aa
+nor_ibor_6m	derived	float64	526a5a720077f975
+nor_kpi_yoy	derived	float64	d50f6dd221c198dc
+nor_kpijae_yoy	derived	float64	e22b2807495b152e
+nor_nibor_nowa_spread	derived	float64	1abac926c62bf6a8
+nor_nowa_level	derived	float64	f42c268c2c541ca7
+nor_polrate_chg_1d	derived	float64	6a88191fad9b2a69
+nor_polrate_days_since_chg	derived	float64	f5c6fbadbf7704f0
+nor_polrate_level	derived	float64	5a681047decdc0dd
+nor_rb_rate_chg	derived	float64	42bbd4916ce4610d
+nor_rb_rate_level	derived	float64	d8db4cbed0b46cd9
+nor_unemp	derived	float64	48d2ed0db8e2d256
+nor_usdnok_chg_1d	derived	float64	7a3161d6ebfb5bfb
+nor_usdnok_level	derived	float64	f57d42a01fe11c35
+nor_usdnok_mom_1m	derived	float64	1f950de01504e308
+nor_usdnok_mom_3m	derived	float64	7f36efe3fd785c26
+nor_usdnok_rvol_20d	derived	float64	3b3ef3946f14a83b
+oil_mom_1m	derived	float64	fd3ec43241103411
+oil_mom_3m	derived	float64	ed6cb7b14a9954f9
+opec_prod	derived	float64	f7812e6f93852a0f
+ovx_level	derived	float64	3949c0a1d0f4a34a
+pce_core_chg	derived	float64	302e06859eac13cd
+pce_core_level	derived	float64	dcce95e1483d8273
+pmi_eur	derived	float64	755a7eebcb28749a
+pmi_us	derived	float64	2d595a2069195c47
+rb_polrate	derived	float64	fb1f4eea0544f986
+rvx_level	derived	float64	076a0b6dedac5701
+spx_mom_1m	derived	float64	257c64cc06089dfe
+spx_mom_3m	derived	float64	1002eebfd0a91f4e
+sx5e_mom_1m	derived	float64	cdc6c51af3b8b28f
+sx5e_mom_3m	derived	float64	27912041c048edd5
+unemp_eur	derived	float64	fb446832ceb87182
+v2x_level	derived	float64	a7af406896e482e0
+vix_level	derived	float64	fee05354d75a6527
+vix_zscore	derived	float64	374c614eadc9a29b
+vxn_level	derived	float64	bee091024febf2ad

@@ -7,9 +7,10 @@
 > and tell the human exactly what to do; do not attempt them yourself.
 
 Repo: **https://github.com/KAF-99/Thesis-repo** (private).
-Canonical reproducibility fingerprint (compare at the end — all must match):
-`df_raw.hash16 = bf41b0b517d13814`, `config.hash16 = 2ef2eace9701cfcc`,
+Canonical reproducibility gates (compare at the end — these MUST match):
+`df_raw_values.hash16 = 798f8764c5f695b1` (raw data integrity), `config.hash16 = 2ef2eace9701cfcc`,
 `feature_spec.hash16 = a6b89af4849951bd`, `tau_w ≈ 2.287`.
+(`df_raw.hash16` is **informational** — it may differ at ULP across CPU arch in derived columns; see Step 7 / G7.)
 
 ---
 
@@ -146,16 +147,17 @@ FINGERPRINT block back to the human.** Cross-check against the canonical:
 
 | Field | Must match? |
 |---|---|
-| `df_raw.hash16 = bf41b0b517d13814` | **YES, exactly.** Column load order is sorted/deterministic AND floats are parsed with `float_precision="round_trip"`, so this hash is portable across machines. If it differs while config/feature_spec/τ match, it's a pandas-version datetime difference — see G7. |
+| `df_raw_values.hash16 = 798f8764c5f695b1` | **YES, exactly — the data-integrity gate.** Raw (pre-augmentation, 138-col) values-only hash; portable (round_trip float parse + deterministic column order). A mismatch means the raw Bloomberg data or its parse differs — reconcile before trusting anything. |
 | `config.hash16 = 2ef2eace9701cfcc` | **YES, exactly** (OS-independent) |
 | `feature_spec.hash16 = a6b89af4849951bd` | **YES, exactly** (OS-independent) |
 | `tau_w ≈ 2.287` | within ~1e-6 (cross-OS FP/BLAS) |
 | `df_raw.shape = (8183, 266)` | **YES** |
+| `df_raw.hash16` | **Informational — may differ.** The ~88 derived columns (`*_zscore`, rolling-vol, `*_mom_*`, FX transforms…) differ at ULP (~1e-15) across CPU arch (x64 vs arm64) due to SIMD/FP ordering. This does **not** move results (τ identical); the gate is `df_raw_values.hash16` + config + feature_spec + τ. |
 
-**STOP & report** if `config.hash16` or `feature_spec.hash16` differs (real input/config divergence —
-reconcile before any sweep), or if you get `PILOT FAIL: <field>` (report the field). If only
-`df_raw.hash16` differs (config/feature_spec/τ all match), it's the pandas-version artifact in G7 —
-report it but it is not a blocker.
+**STOP & report** if `df_raw_values.hash16`, `config.hash16`, or `feature_spec.hash16` differs
+(real input/config divergence — reconcile before any sweep), or if you get `PILOT FAIL: <field>`
+(report the field). `df_raw.hash16` differing while those gates + τ match is **expected** (arch-level
+ULP in derived columns, G7) — report it, but it is not a blocker.
 
 ---
 
@@ -176,5 +178,5 @@ report it but it is not a blocker.
 - **G4 — `np.linalg.svd` crash / fatal `0xc06d007f` (Windows) — BLAS clash.** numpy/scipy are on different LAPACKs. Re-create the env from `environment.yml` (pins `libblas=*=*openblas`); never `pip install` numpy/scipy/scikit-learn. The script's step (f) BLAS test catches this.
 - **G5 — Julia `Package DataFrames/HybridTreeBoosting not found` — juliacall project not wired.** `python scripts/setup_htboost.py` sets `PYTHON_JULIAPKG_PROJECT` + writes conda activate.d hooks; **reopen the shell** afterward. Confirm `PYTHON_JULIAPKG_PROJECT` points at `…/envs/thesis/julia_env`.
 - **G6 — GUI Jupyter kernel doesn't see `THESIS_DATA_PATH`.** Kernels don't inherit shell exports; the runbook uses captured `run_handshake.py` from a shell where the var is set. In a notebook, set `os.environ["THESIS_DATA_PATH"]=...` before importing the loaders.
-- **G7 — `df_raw.hash16` ≠ `bf41b0b517d13814` but config/feature_spec/τ match.** Column load order is deterministic (sorted in `load_data`) and floats use `float_precision="round_trip"` (so cross-arch ULP parse differences are gone), so a remaining mismatch means a pandas-version datetime-unit difference (`datetime64[ns]` vs `[us]`), which changes `pd.util.hash_pandas_object` even with identical values. Re-create the env from `environment.yml` so pandas matches the fleet; report it, but config/feature_spec/τ remain the definitive reproducibility check — not a blocker.
+- **G7 — `df_raw.hash16` differs but `df_raw_values.hash16` + config/feature_spec/τ match.** Expected, not a bug. The raw inputs are bit-identical (that's `df_raw_values.hash16`), but the ~88 derived columns (`*_zscore`, rolling-vol, `*_mom_*`, FX transforms…) are computed with SIMD/FP operations that differ at ULP (~1e-15) across CPU architectures (x64 vs arm64). This is inherent cross-arch floating point, below any threshold that moves results (τ is identical), and is **not** fixable without rounding real feature values. The reproducibility gates are `df_raw_values.hash16` + config + feature_spec + τ; `df_raw.hash16` is informational. (A `df_raw_values.hash16` mismatch, by contrast, IS a blocker — raw data/parse divergence.)
 - **G8 — `df_raw.shape = (8183, 138)` instead of 266.** The norway augmentation didn't run (offline cache path). Ensure the clone is current and `NORWAY_LIVE_FETCH` is unset (cache-first builds 266 from the committed `data/cache/norway_raw_features.csv`).
