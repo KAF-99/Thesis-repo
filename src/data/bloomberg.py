@@ -30,7 +30,11 @@ def _parse_bloomberg_date(x: object) -> pd.Timestamp:
 
 def _load_simple_csv(path: str) -> pd.DataFrame:
     """Load a CSV where the first column is a DD.MM.YYYY date and the rest are numeric."""
-    df = pd.read_csv(path)
+    # float_precision="round_trip": the default C parser (xstrtod) uses approximate FP
+    # arithmetic whose last bit rounds differently across arm64/x64, so high-precision series
+    # (e.g. ^VIX in Oil, vol, div.csv) parsed to ULP-different floats on macOS vs Windows,
+    # making df_raw's hash non-portable. The precise round-trip parser is platform-independent.
+    df = pd.read_csv(path, float_precision="round_trip")
     df.rename(columns={df.columns[0]: "Date"}, inplace=True)
     df["Date"] = pd.to_datetime(df["Date"], dayfirst=True, errors="coerce")
     for col in df.columns[1:]:
@@ -70,7 +74,8 @@ def load_data(data_path: str = config.DATA_PATH) -> pd.DataFrame:
     df_list = []
     for file in swap_files:
         country = file.replace(".csv", "")
-        df = pd.read_csv(os.path.join(data_path, file), skiprows=5)
+        # float_precision="round_trip" for platform-independent float parsing (see _load_simple_csv).
+        df = pd.read_csv(os.path.join(data_path, file), skiprows=5, float_precision="round_trip")
         df = df.iloc[:, :10].copy()
         df.columns = ["Date"] + config.MATURITY_NAMES
         df["Date"] = df["Date"].apply(_parse_bloomberg_date)
