@@ -35,6 +35,7 @@ packages = [
     "src.models",
     "src.audit",
     "src.evaluation",
+    "src.utils",
 ]
 
 # ── Alternative (NOT used) ────────────────────────────────────────────────────

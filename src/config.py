@@ -57,6 +57,12 @@ MACHINE_ID = re.sub(r"[^A-Za-z0-9_-]", "-", _raw_machine) or "unknown"
 
 DATA_PATH = os.environ.get("THESIS_DATA_PATH", "./data/raw")
 
+# Opt-in auto-push of machine-stamped result CSVs (Prompt 7). OFF by default: with
+# THESIS_AUTO_PUSH unset, every notebook behaves exactly as today (commit manually at
+# checkpoints). Set THESIS_AUTO_PUSH=1 to have each checkpointed unit push its result CSV
+# via src.utils.gitpush.push_results (which is itself a no-op unless this is True).
+AUTO_PUSH = os.environ.get("THESIS_AUTO_PUSH", "0") == "1"
+
 MATURITY_NAMES = ["1W", "1M", "3M", "6M", "1Y", "5Y", "10Y", "15Y", "30Y"]
 
 MATURITY_YEARS = {
