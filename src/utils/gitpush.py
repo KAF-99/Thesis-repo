@@ -28,7 +28,11 @@ def _is_allowed(path, root):
     """True iff `path` is under <root>/results/ AND is a .csv or MANIFEST.md."""
     ap = os.path.abspath(path)
     results_root = os.path.join(root, "results") + os.sep
-    if not ap.startswith(results_root):
+    # Case-insensitive prefix check. On Windows the same drive is reported as 'c:'
+    # (VS Code kernel cwd) or 'C:' (abspath of __file__); a case-sensitive startswith
+    # refused lowercase-drive result paths. normcase normalises CASE (and os.sep) for
+    # this comparison ONLY — the under-results/ and .csv/MANIFEST checks are unchanged.
+    if not os.path.normcase(ap).startswith(os.path.normcase(results_root)):
         return False
     base = os.path.basename(ap)
     return base.endswith(".csv") or base == "MANIFEST.md"
