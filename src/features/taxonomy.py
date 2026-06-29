@@ -2,10 +2,11 @@
 
 ``bucket_feature`` is copied **verbatim** from ``model_htboost_v5_clean.ipynb`` /
 ``model_linear_v5_clean.ipynb`` (both byte-identical). Lifting it here lets every
-model — HTBoost, the linear benchmarks, and XGBoost — bucket feature importance,
-permutation importance, and SHAP onto the **same** macro-vs-curve taxonomy, so the
-cross-model comparison (thesis §3.5 / Ch. 4) is apples-to-apples. This mirrors the
-``SHARED_COLS`` "one definition" rule for the metric schema: do not let copies drift.
+model — HTBoost, the linear benchmarks, XGBoost, and CatBoost — bucket feature
+importance, permutation importance, and SHAP onto the **same** macro-vs-curve
+taxonomy, so the cross-model comparison (thesis §3.5 / Ch. 4) is apples-to-apples.
+This mirrors the ``SHARED_COLS`` "one definition" rule for the metric schema: do not
+let copies drift.
 
 The PCA components ``xmpca_*`` inherit the ``cross_market`` bucket, so importance
 attributed to the compressed cross-market block is still bucketed correctly.

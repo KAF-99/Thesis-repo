@@ -23,6 +23,10 @@ dependencies:
   - pip
   - pip:
       - nbstripout
+      # CatBoost notebook (model_catboost_v5_clean): pinned to the tested version.
+      # Native SHAP (ShapValues) needs no separate shap lib. pip is fine — CatBoost
+      # bundles its own libs and does not perturb the numpy/scipy/sklearn BLAS.
+      - catboost==1.2.10
       # HTBoost notebooks only: requires a working Julia + HybridTreeBoosting install.
       # - juliacall
 # After `conda env create -f environment.yml && conda activate thesis`, run
