@@ -1,0 +1,5 @@
+security,country,tenor,horizon,fold,regime,tau_w,tau_w_band
+NOR_10Y,NOR,10Y,126,Block_GFC,GFC,4.7642795472677175,strong
+NOR_10Y,NOR,10Y,126,Block_ZIRP,ZIRP,1.5,strong
+NOR_10Y,NOR,10Y,126,Block_COVID,COVID,40.0,none
+NOR_10Y,NOR,10Y,126,Block_Hiking,Hiking,40.0,none
