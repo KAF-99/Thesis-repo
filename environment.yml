@@ -13,6 +13,10 @@ dependencies:
   - pandas
   - scipy            # from conda-forge ONLY — do not let pip install scipy (BLAS clash)
   - scikit-learn
+  # XGBoost notebook (model_xgboost_v5_clean): xgboost for the model, shap for the
+  # SHAP swarm/importance figures. Both from conda-forge to keep one OpenBLAS.
+  - xgboost
+  - shap
   - statsmodels
   - matplotlib
   - jupyter
