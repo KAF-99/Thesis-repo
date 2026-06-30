@@ -64,3 +64,5 @@ ch7_outputs/
 # Belt-and-braces: never commit importance pickles or pilot scratch.
 results/**/*.pkl
 results/**/_pilot/**
+/results/mean_reversion_v5_nor/mean_reversion_oos_predictions_universe.csv
+/results/momentum_v5_nor/momentum_oos_predictions_universe.csv
