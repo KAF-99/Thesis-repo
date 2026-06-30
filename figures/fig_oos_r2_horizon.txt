@@ -1,0 +1,1 @@
+Mean out-of-sample $R^2_{\text{OOS}}$ against horizon on common-support cells; the random walk sits at zero (dashed) and OLS is omitted for scale. No model rises above the benchmark at any horizon.

@@ -1,0 +1,19 @@
+\begin{table}[htbp]
+\centering
+\caption{In-sample (train) directional accuracy (DA) and raw $R^2$ versus the random walk, by estimator and NOK swap tenor, averaged across horizons and walk-forward regime folds. In-sample fit is highest for OLS and CatBoost and lowest for the heavily-regularised HTBoost ($t$); whether any of it survives out of sample is the subject of Chapter~8.}
+\label{tab:is_estimators}
+\footnotesize
+\begin{tabular}{lrrrrrrrrrr}
+\toprule
+\multicolumn{1}{c}{} & \multicolumn{2}{c}{HTBoost ($t$)} & \multicolumn{2}{c}{CatBoost} & \multicolumn{2}{c}{XGBoost} & \multicolumn{2}{c}{OLS} & \multicolumn{2}{c}{Elastic Net} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9} \cmidrule(lr){10-11}
+Tenor & DA & $R^2$ & DA & $R^2$ & DA & $R^2$ & DA & $R^2$ & DA & $R^2$ \\
+\midrule
+NOK 1Y & 0.601 & 0.062 & 0.677 & 0.515 & 0.644 & 0.399 & 0.726 & 0.646 & 0.553 & 0.112 \\
+NOK 5Y & 0.592 & 0.077 & 0.708 & 0.408 & 0.678 & 0.301 & 0.730 & 0.522 & 0.583 & 0.156 \\
+NOK 10Y & 0.590 & 0.068 & 0.699 & 0.302 & 0.701 & 0.272 & 0.739 & 0.499 & 0.602 & 0.137 \\
+NOK 15Y & 0.595 & 0.084 & 0.696 & 0.332 & 0.673 & 0.238 & 0.727 & 0.493 & 0.607 & 0.156 \\
+NOK 30Y & 0.590 & 0.076 & 0.677 & 0.289 & 0.676 & 0.265 & 0.734 & 0.498 & 0.593 & 0.138 \\
+\bottomrule
+\end{tabular}
+\end{table}

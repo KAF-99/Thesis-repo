@@ -1,0 +1,1 @@
+Overfitting gap (in-sample minus out-of-sample raw $R^2$) by horizon and model; OLS omitted for scale. The gap widens with horizon, confirming that apparent in-sample fit does not survive out of sample.

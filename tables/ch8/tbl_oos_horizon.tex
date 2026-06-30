@@ -1,0 +1,20 @@
+\begin{table}[htbp]
+\centering
+\caption{Mean out-of-sample Campbell--Thompson $R^2_{\text{OOS}}$ by model and forecast horizon, averaged over the common-support (tenor, regime) walk-forward cells. The random walk is the benchmark at $R^2_{\text{OOS}}=0$; negative values do not beat it. At the one-year horizon HTBoost lacks the Post-GFC fold, so that column is averaged over the four common regimes for every model.}
+\label{tab:oos_horizon}
+\footnotesize
+\begin{tabular}{lrrrrrr}
+\toprule
+Model & 1d & 1w & 1m & 3m & 6m & 1y \\
+\midrule
+HTBoost ($t$) & -0.001 & -0.003 & -0.031 & -0.148 & -0.094 & -0.075 \\
+HTBoost (L2) & -0.009 & -0.017 & -0.060 & -0.222 & -0.311 & -0.143 \\
+XGBoost & -0.034 & -0.049 & -0.080 & -0.201 & -0.204 & -0.195 \\
+CatBoost & -0.013 & -0.032 & -0.076 & -0.207 & -0.115 & -0.206 \\
+OLS & -5.554 & -8.452 & -16.697 & -23.835 & -22.157 & -17.527 \\
+Elastic Net & -0.001 & -0.003 & -0.026 & -0.043 & -0.196 & -0.315 \\
+Momentum & 0.001 & -0.006 & -0.026 & -0.118 & -0.223 & -0.514 \\
+Mean reversion & -0.009 & -0.040 & -0.162 & -0.367 & -0.484 & -0.520 \\
+\bottomrule
+\end{tabular}
+\end{table}

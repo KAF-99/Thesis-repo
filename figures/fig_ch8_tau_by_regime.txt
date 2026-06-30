@@ -1,0 +1,1 @@
+Mean HTBoost smoothness weight $\tau^{w}$ per regime, pooled across tenors and horizons. Higher $\tau^{w}$ indicates more aggressive local nonlinearity; regimes are shaded with the shared thesis palette.

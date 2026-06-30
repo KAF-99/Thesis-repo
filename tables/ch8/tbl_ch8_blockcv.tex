@@ -1,0 +1,20 @@
+\begin{table}[htbp]
+\centering
+\caption{Block cross-validation mean $R^2_{\text{OOS}}$ by model and horizon (held-out-regime blocks), the learnability counterpart to the walk-forward forecastability tables. Leave-one-regime-out folds give materially identical values. Momentum and mean reversion were evaluated walk-forward only; CatBoost block-CV is dense at the three-month horizon only.}
+\label{tab:ch8_blockcv}
+\footnotesize
+\begin{tabular}{lrrrrrr}
+\toprule
+Model & 1d & 1w & 1m & 3m & 6m & 1y \\
+\midrule
+HTBoost ($t$) & -0.002 & -0.007 & -0.012 & -0.076 & -0.123 & -0.277 \\
+HTBoost (L2) & -0.001 & -0.016 & -0.008 & -0.127 & -0.230 & -0.615 \\
+XGBoost & -0.054 & -0.028 & -0.218 & -0.114 & -0.144 & -0.455 \\
+CatBoost & -0.011 & -- & -- & -0.153 & -- & -- \\
+OLS & -3.590 & -7.366 & -7.202 & -10.763 & -16.346 & -19.950 \\
+Elastic Net & -0.020 & -0.002 & -0.024 & -0.056 & -0.189 & -0.415 \\
+Momentum & -- & -- & -- & -- & -- & -- \\
+Mean reversion & -- & -- & -- & -- & -- & -- \\
+\bottomrule
+\end{tabular}
+\end{table}

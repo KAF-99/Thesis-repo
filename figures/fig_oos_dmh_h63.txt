@@ -1,0 +1,1 @@
+Net number of significant (tenor) cells at the three-month horizon in which HTBoost beats XGBoost / CatBoost on Diebold--Mariano squared-error loss, by regime (preds collapse the two low-rate folds). Positive bars favour HTBoost; its smoothness edge appears mainly in the Hiking regime.

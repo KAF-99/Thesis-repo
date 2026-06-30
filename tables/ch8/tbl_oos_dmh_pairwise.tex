@@ -1,0 +1,15 @@
+\begin{table}[htbp]
+\centering
+\caption{Pairwise Diebold--Mariano tests with the Harvey--Leybourne--Newbold small-sample correction on squared-error loss (Newey--West HAC, truncation lag $h-1$), counted over (tenor, regime) cells. Each entry is the number of cells significant at $p<0.05$ favouring the first vs.\ the second model of the pair. HTBoost-involving pairs use the four common regimes at $h=1y$ (Post-GFC dropped).}
+\label{tab:oos_dmh}
+\footnotesize
+\begin{tabular}{lrrrrrr}
+\toprule
+Pair & 1d & 1w & 1m & 3m & 6m & 1y \\
+\midrule
+HTBoost\,/\,XGB & 7/1 & 8/0 & 2/0 & 2/1 & 3/0 & 2/2 \\
+HTBoost\,/\,Cat & 3/0 & 8/1 & 7/1 & 4/1 & 4/0 & 2/0 \\
+Cat\,/\,XGB & 4/4 & 3/2 & 2/5 & 1/2 & 2/1 & 0/5 \\
+\bottomrule
+\end{tabular}
+\end{table}

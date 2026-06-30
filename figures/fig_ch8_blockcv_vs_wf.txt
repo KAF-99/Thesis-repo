@@ -1,0 +1,1 @@
+Learnability (block cross-validation) versus forecastability (walk-forward) mean $R^2_{\text{OOS}}$ for each model and horizon; the dashed line is equality. Points cluster below zero on both axes, so neither resampling scheme recovers exploitable structure. OLS and the rule benchmarks are omitted (off scale / WF-only).

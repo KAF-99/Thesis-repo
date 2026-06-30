@@ -1,0 +1,1 @@
+HTBoost ($t$) importance-weighted smoothness $\tau^{w}$ by tenor (rows) and horizon (columns), averaged across walk-forward regime folds. Sequential shading; the marked colourbar lines are the Giordani band cut-offs at $7/15/25$.

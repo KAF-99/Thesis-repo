@@ -1,0 +1,19 @@
+\begin{table}[htbp]
+\centering
+\caption{Directional significance against the random walk under multiple-testing control. Each model's walk-forward family is its set of (tenor, horizon, regime) cells; $N$ is the number with a defined binomial sign test. Bonferroni rejects at $0.05/N$; Benjamini--Hochberg (BH) controls the false-discovery rate at $q=0.05$. HTBoost's $N$ is smaller because the one-year Post-GFC cell is absent (not padded).}
+\label{tab:oos_survivors}
+\begin{tabular}{lrrrr}
+\toprule
+Model & $N$ & Raw $p<0.05$ & Bonferroni & BH (FDR) \\
+\midrule
+HTBoost ($t$) & 145 & 43 & 30 & 38 \\
+HTBoost (L2) & 145 & 30 & 21 & 25 \\
+XGBoost & 150 & 32 & 28 & 29 \\
+CatBoost & 150 & 35 & 27 & 32 \\
+OLS & 150 & 40 & 32 & 36 \\
+Elastic Net & 150 & 40 & 33 & 39 \\
+Momentum & 150 & 51 & 44 & 48 \\
+Mean reversion & 150 & 22 & 15 & 19 \\
+\bottomrule
+\end{tabular}
+\end{table}

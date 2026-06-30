@@ -1,0 +1,20 @@
+\begin{table}[htbp]
+\centering
+\caption{Mean out-of-sample $R^2_{\text{OOS}}$ by model and regime, pooled across horizons and tenors. HTBoost ($t$/L2) exclude the one-year Post-GFC cell (absent); all other cells are present. The benchmark is the random walk at zero.}
+\label{tab:oos_regime}
+\footnotesize
+\begin{tabular}{lrrrrr}
+\toprule
+Model & Post-GFC & Low-rate I & Low-rate II & COVID & Hiking \\
+\midrule
+HTBoost ($t$) & -0.043 & -0.073 & -0.040 & -0.024 & -0.107 \\
+HTBoost (L2) & -0.326 & -0.062 & -0.023 & -0.038 & -0.217 \\
+XGBoost & -0.365 & 0.009 & -0.110 & -0.133 & -0.322 \\
+CatBoost & -0.559 & 0.007 & -0.087 & -0.045 & -0.334 \\
+OLS & -21.529 & -10.880 & -13.937 & -7.077 & -23.370 \\
+Elastic Net & -1.573 & -0.065 & -0.135 & -0.060 & -0.118 \\
+Momentum & 0.029 & -0.023 & -0.125 & -0.068 & -0.422 \\
+Mean reversion & -1.068 & -0.386 & -0.014 & 0.004 & -0.137 \\
+\bottomrule
+\end{tabular}
+\end{table}

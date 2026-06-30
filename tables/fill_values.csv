@@ -1,0 +1,60 @@
+fill_id,value,source,notes
+7.3-dominant-band,strong,v5_tau sidecars,modal tau_w_band over all tenor/horizon/fold rows
+7.3-tau-reading,mostly 'strong' band; mean tau_w=12.72,v5_tau,"bands: {'strong': 93, 'none': 39, 'mild': 11, 'weak': 2}"
+7.3-tau-variation,varies 1.6–32.7 across tenor×horizon,tbl_is_tau,range of cell means
+7.4-vol-macro-share,55.0\%,3-model importance,mean share vol+macro across HTB/XGB/Cat
+7.4-vol-peak,vol share 16.1\% (max 39.6\%),3-model importance,
+7.4-momentum-trend,5.4\%,3-model importance,mean momentum-bucket share
+7.4-carry-share,1.4\%,3-model importance,
+7.4-credit,0.0\%,3-model importance,
+7.4-norway-share,22.2\%,3-model importance,
+7.4-agreement,"top buckets differ: {'htboost_t': 'vol', 'xgboost': 'macro', 'catboost': 'macro'}",3-model importance,
+7.5-train-DA-short,0.537,htboost_t train,"H1,H5"
+7.5-train-DA-mid,0.631,htboost_t train,"H21,H63"
+7.5-train-R2-sign,positive,htboost_t train,mean raw R2=0.073
+7.5-oos-R2-sign,negative,htboost_t oos,mean raw R2=-0.150
+7.5-R2-gap-pattern,train +0.073 vs OOS -0.150; gap widens with horizon,htboost_t,
+7.6-curve-uniformity,DA 0.590–0.601 across maturities (near-uniform),tbl_is_maturity,
+7.6-DA-min,0.590 (NOK 30Y),tbl_is_maturity,
+7.6-DA-max,0.601 (NOK 1Y),tbl_is_maturity,
+7.6-R2-range,0.062–0.084,tbl_is_maturity,
+7.6-concentration,mild peak at NOK 15Y,tbl_is_maturity,train raw R2 highest there
+7.7-nonlinearity-gap,-0.067,tbl_is_estimators,HTBoost-t minus Elastic Net train R2; vs OLS -0.458
+7.7-smoothness-gap-insample,-0.296,tbl_is_estimators,HTBoost-t minus CatBoost train R2 (CatBoost fits more in-sample)
+7.7-smoothness-gap-size,moderate,tbl_is_estimators,|-0.296|
+7.7-tie-to-tau,"high tau^w yet lowest in-sample R2 (0.073): strong shrinkage, not weak signal",tbl_is_estimators + tau,tbl_is_estimators + tau
+7.7-ols-note,OLS fits most in-sample (train R2=0.532) yet explodes OOS,tbl_is_estimators,tbl_is_estimators
+7.8-summary,PENDING,-,written last
+8.1-headline-direction,no model beats the random walk on mean R2_OOS at any horizon,agg_by_horizon (8 live models),max cell = momentum@1d +0.001
+DA-min-H,0.455 at 6m,agg_by_horizon,mean DA across models per horizon
+DA-max-H,0.490 at 1m,agg_by_horizon,
+R2-H1,"-0.010 (mean, excl. OLS)",agg_by_horizon,"7 models excl. OLS; range [-0.034, 0.001]"
+R2-trend-across-H,R2_OOS (excl. OLS) worsens 1d->3m then partly stabilises,agg_by_horizon,cross-model mean excl. OLS off-scale
+n-models-positive-R2,1 of 8 at 1d (Momentum); 0 at all H>=1w,agg_by_horizon,npos@H1=1
+8.1-long-horizon-pattern,"1y still negative for all; HTBoost least-bad (common support, GFC dropped)",agg_by_horizon,
+8.2-regime-pattern,"least-negative R2 in COVID, worst in Post-GFC",agg_by_regime,excl. OLS
+best-regime,COVID,agg_by_regime,mean R2=-0.052 (excl. OLS)
+DA-best-regime,0.444,agg_by_regime,DA in COVID (excl. OLS)
+worst-regime,Post-GFC,agg_by_regime,mean R2=-0.577 (excl. OLS)
+DA-worst-regime,0.471,agg_by_regime,DA in Post-GFC (excl. OLS)
+DA-min-tenor,0.464 (NOK 15Y),agg_by_tenor,
+DA-max-tenor,0.492 (NOK 1Y),agg_by_tenor,
+R2-tenor-pattern,R2_OOS -0.172 to -0.079 across tenors (excl. OLS),agg_by_tenor,excl. OLS off-scale
+8.3-curve-reading,no monotone maturity gradient; all tenors below RW,agg_by_tenor,
+8.4-tau-band,strong,v5_tau,"same tau summary, OOS verdict"
+8.4-tau-reading,"smoothness modal 'strong', mean 12.7; does not translate to OOS edge",v5_tau,
+8.4-smoothness-winner,HTBoost,dmh_pairwise,HTBoost-vs-CatBoost sig cells
+8.4-smoothness-tally,HTBoost 28 vs CatBoost 3 sig cells,dmh_pairwise,across all horizons
+8.4-architecture-dmh,CatBoost 12 vs XGBoost 19 sig cells,dmh_pairwise,CatBoost-vs-XGBoost
+8.4-where-wins-concentrate,HTBoost sig wins concentrate in Hiking (30 cells),dmh_pairwise,over htb-vs-xgb & htb-vs-cat
+8.4-synthesis,smoothness gives HTBoost a within-tree edge but none beat RW,dmh_pairwise + agg,
+N-family,145,mtc_by_family,htboost_t cells with defined binom test
+n-above-chance,69,htboost_t oos,cells with DA>0.5
+n-binom-sig,43,mtc_by_family,raw binom p<0.05
+n-cw-sig,11,wf_metrics,Clark-West p<0.05
+n-dmh-sig,5,wf_metrics,DM-H vs RW p<0.05
+n-bonferroni,30,mtc_by_family,
+n-bh,38,mtc_by_family,BH crit p=0.0124
+8.7-loss-agreement,t and L2 agree in sign on R2_OOS at all horizons,htboost_t vs htboost_l2,both negative throughout
+t-vs-l2-delta,+0.068,htboost_t vs htboost_l2,mean R2_OOS(t)-R2_OOS(L2)
+8.8-summary,PENDING,-,written last

@@ -1,0 +1,20 @@
+\begin{table}[htbp]
+\centering
+\caption{Mean out-of-sample directional accuracy by model and forecast horizon, averaged over the common-support walk-forward cells. Values near $0.50$ indicate no exploitable sign predictability.}
+\label{tab:oos_diracc_horizon}
+\footnotesize
+\begin{tabular}{lrrrrrr}
+\toprule
+Model & 1d & 1w & 1m & 3m & 6m & 1y \\
+\midrule
+HTBoost ($t$) & 0.490 & 0.494 & 0.507 & 0.475 & 0.456 & 0.467 \\
+HTBoost (L2) & 0.488 & 0.475 & 0.494 & 0.457 & 0.419 & 0.482 \\
+XGBoost & 0.491 & 0.490 & 0.473 & 0.480 & 0.501 & 0.504 \\
+CatBoost & 0.478 & 0.483 & 0.469 & 0.466 & 0.498 & 0.524 \\
+OLS & 0.488 & 0.470 & 0.484 & 0.486 & 0.510 & 0.531 \\
+Elastic Net & 0.472 & 0.480 & 0.496 & 0.499 & 0.472 & 0.454 \\
+Momentum & 0.482 & 0.502 & 0.524 & 0.505 & 0.491 & 0.401 \\
+Mean reversion & 0.425 & 0.452 & 0.470 & 0.367 & 0.289 & 0.320 \\
+\bottomrule
+\end{tabular}
+\end{table}

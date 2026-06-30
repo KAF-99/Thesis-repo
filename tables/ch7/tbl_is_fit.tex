@@ -1,0 +1,21 @@
+\begin{table}[htbp]
+\centering
+\caption{In-sample (train) versus out-of-sample (OOS) fit and the implied overfitting gap (train $-$ OOS) per model, averaged across NOK tenors, horizons, and walk-forward regime folds. A positive gap is fit that does not survive out of sample; OOS directional accuracy near $0.50$ and OOS raw $R^2$ near or below zero are the study's null-confirmation signature. The linear and rule benchmarks are shown for contrast.}
+\label{tab:is_fit}
+\begin{tabular}{lrrrrrr}
+\toprule
+\multicolumn{1}{c}{} & \multicolumn{3}{c}{Directional accuracy} & \multicolumn{3}{c}{Raw $R^2$ (vs.\ random walk)} \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7}
+Model & Train & OOS & Gap & Train & OOS & Gap \\
+\midrule
+HTBoost ($t$) & 0.594 & 0.482 & 0.112 & 0.073 & -0.150 & 0.224 \\
+HTBoost (L2) & 0.617 & 0.469 & 0.148 & 0.197 & -0.243 & 0.441 \\
+XGBoost & 0.674 & 0.481 & 0.194 & 0.295 & -0.423 & 0.718 \\
+CatBoost & 0.691 & 0.477 & 0.214 & 0.369 & -0.518 & 0.887 \\
+OLS & 0.731 & 0.493 & 0.238 & 0.532 & -18.620 & 19.152 \\
+Elastic Net & 0.588 & 0.474 & 0.113 & 0.140 & -1.197 & 1.337 \\
+Momentum & 0.572 & 0.496 & 0.076 & 0.032 & -0.362 & 0.394 \\
+Mean reversion & 0.475 & 0.382 & 0.093 & 0.017 & -0.607 & 0.625 \\
+\bottomrule
+\end{tabular}
+\end{table}

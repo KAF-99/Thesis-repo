@@ -1,0 +1,1 @@
+Feature-importance share by taxonomy bucket for the three tree models (HTBoost relevance, XGBoost gain, CatBoost prediction-values-change), pooled across horizons, regimes, and tenors and normalised within model. All three concentrate on the same momentum/curve block.
