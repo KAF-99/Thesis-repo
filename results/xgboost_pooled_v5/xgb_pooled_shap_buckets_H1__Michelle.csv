@@ -1,0 +1,9 @@
+security,horizon,scheme,fold,use_categoricals,bucket,shap_abs,shap_share_pct
+__POOL__,1,walk_forward,GFC,True,momentum,0.022971857506490778,28.57881747184465
+__POOL__,1,walk_forward,GFC,True,carry_roll,0.0005949275218881667,0.7401371461674231
+__POOL__,1,walk_forward,GFC,True,curve,0.023401084763463587,29.11281031188819
+__POOL__,1,walk_forward,GFC,True,vol,0.007092567713698372,8.82371824042577
+__POOL__,1,walk_forward,GFC,True,macro,0.012729535839753225,15.836554843804887
+__POOL__,1,walk_forward,GFC,True,credit,0.0,0.0
+__POOL__,1,walk_forward,GFC,True,cross_market,0.0066551752024679445,8.27956717478059
+__POOL__,1,walk_forward,GFC,True,categorical,0.006935565346793737,8.628394811088489
