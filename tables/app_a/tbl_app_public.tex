@@ -1,0 +1,23 @@
+\begin{table}[htbp]
+\centering
+\caption{Public (non-Bloomberg) Norwegian and policy series fetched from open APIs and cached in \texttt{data/cache/norway\_raw\_features.csv} (regenerable, committed). Brent, WTI and EIA natural-gas series are intentionally skipped (they require an API key); the pipeline falls back to existing oil/gas columns.}
+\label{tab:app_public}
+\footnotesize
+\begin{tabular}{llll}
+\toprule
+Provider & Series & Identifier / table code & Frequency \\
+\midrule
+Norges Bank & EUR/NOK exchange rate & EXR & Daily \\
+Norges Bank & USD/NOK exchange rate & EXR & Daily \\
+Norges Bank & Import-weighted krone index I-44 & EXR & Daily \\
+Norges Bank & Policy (key) rate & IR / KPRA & Daily \\
+Norges Bank & NOWA overnight rate & SHORT\_RATES / NOWA & Daily \\
+Norges Bank & Government yields 3Y / 5Y / 10Y & GOVT\_GENERIC\_RATES & Daily \\
+SSB & CPI, year-on-year & Table 03013 & Monthly \\
+SSB & CPI-ATE (KPI-JAE), year-on-year & Table 05327 & Monthly \\
+SSB & LFS unemployment rate & Table 13760 & Monthly \\
+ECB & Deposit facility rate & Deposit facility & Daily \\
+Riksbank & Policy rate & SECBREPOEFF & Daily \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,18 @@
+\begin{table}[htbp]
+\centering
+\caption{XGBoost and CatBoost hyperparameter grids with the analogous-control mapping; both use a time-ordered inner-validation split (last 20\%) with early stopping (patience 20, max 500 rounds). Three deliberate divergences are not reconcilable to a common grid: (1) HTBoost optimises a Student-$t$ loss whereas the gradient-boosters use squared error; (2) CatBoost samples rows by Minimum-Variance Sampling (MVS) while XGBoost uses Bernoulli subsampling; (3) CatBoost's symmetric (oblivious) depth $\{4,6\}$ is not equivalent to XGBoost's depthwise \texttt{max\_depth} $\{3,5\}$. HTBoost runs a frozen configuration (loss $=t$, $\lambda=0.10$, nfold $=4$, modality $=$ accurate).}
+\label{tab:app_grids}
+\footnotesize
+\begin{tabular}{lll}
+\toprule
+Conceptual control & XGBoost & CatBoost \\
+\midrule
+Learning rate & learning\_rate $\{0.01,0.05,0.10\}$ & learning\_rate $\{0.01,0.05,0.10\}$ \\
+Tree depth & max\_depth $\{3,5\}$ (depthwise) & depth $\{4,6\}$ (symmetric) \\
+Boosting rounds & n\_estimators $\le 500$ (early stop) & iterations $\le 500$ (early stop) \\
+Row subsampling & subsample $\{0.8,1.0\}$ (Bernoulli) & subsample $\{0.8,1.0\}$ (MVS) \\
+Column subsampling & colsample\_bytree $\{0.8,1.0\}$ & -- (none) \\
+$L_2$ regularisation & reg\_lambda $\{1,5,10\}$ & l2\_leaf\_reg $\{1,5,10\}$ \\
+\bottomrule
+\end{tabular}
+\end{table}

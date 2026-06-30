@@ -1,0 +1,17 @@
+\begin{table}[htbp]
+\centering
+\caption{Per-horizon leakage controls. Walk-forward uses a one-sided pre-test purge of $h-1$ business days (the label-overlap window); block cross-validation uses a two-sided Lopez de Prado embargo of $\max(h,10)$ business days around each held-out regime block.}
+\label{tab:app_purge}
+\begin{tabular}{lrr}
+\toprule
+Horizon $h$ & WF purge ($h-1$ bd) & Block-CV embargo ($\max(h,10)$ bd) \\
+\midrule
+1d ($h=1$) & 0 & 10 \\
+1w ($h=5$) & 4 & 10 \\
+1m ($h=21$) & 20 & 21 \\
+3m ($h=63$) & 62 & 63 \\
+6m ($h=126$) & 125 & 126 \\
+1y ($h=252$) & 251 & 252 \\
+\bottomrule
+\end{tabular}
+\end{table}

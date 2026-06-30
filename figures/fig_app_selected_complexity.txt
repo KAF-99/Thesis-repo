@@ -1,0 +1,1 @@
+Median number of selected boosting rounds (early-stopping-chosen for XGBoost/CatBoost, internally chosen \texttt{htb\_ntrees} for HTBoost) by model and horizon, over the walk-forward cells. All three select very shallow ensembles, consistent with the weak signal: early stopping halts within a few dozen rounds.

@@ -1,0 +1,26 @@
+\begin{table}[htbp]
+\centering
+\caption{Swap-curve universe: one currency area per Bloomberg curve file (\texttt{\{CODE\}\_\{tenor\}} columns, nine tenors $1W$--$30Y$ from \texttt{MATURITY\_NAMES}). Eleven areas carry a primary IBOR mapping in \texttt{COUNTRY\_PRIMARY\_IBOR}; Japan, New Zealand and Switzerland load as curves but have no IBOR map, so they enter only as pooled-training and cross-market features. Norway is the sole forecasting target.}
+\label{tab:app_universe}
+\footnotesize
+\begin{tabular}{llllc}
+\toprule
+Currency area & Code & Tenors & Primary IBOR & Role \\
+\midrule
+Norway (NOK) & NOR & 1W--30Y (9) & NIBOR 3M & TARGET \\
+Sweden (SEK) & SWE & 1W--30Y (9) & STIBOR 3M & Predictor \\
+Euro area (EUR) & EUR & 1W--30Y (9) & EURIBOR 6M & Predictor \\
+United States (USD) & SOFR & 1W--30Y (9) & SOFR & Predictor \\
+Canada (CAD) & CAN & 1W--30Y (9) & CORRA (CAONREPO) & Predictor \\
+Australia (AUD) & AUS & 1W--30Y (9) & BBSW 3M & Predictor \\
+Poland (PLN) & POL & 1W--30Y (9) & WIBOR 3M & Predictor \\
+Brazil (BRL) & BRAZ & 1W--30Y (9) & CDI (BZDIOVRA) & Predictor \\
+China (CNY) & CHIN & 1W--30Y (9) & 7d repo (CNRR007) & Predictor \\
+Turkey (TRY) & TURK & 1W--30Y (9) & o/n (MUTKCALM) & Predictor \\
+United Kingdom (GBP) & SONIA & 1W--30Y (9) & SONIA o/n & Predictor \\
+Japan (JPY) & JPY & 1W--30Y (9) & -- & Pooled train \\
+New Zealand (NZD) & NEWZ & 1W--30Y (9) & -- & Pooled train \\
+Switzerland (CHF) & SWZ & 1W--30Y (9) & -- & Pooled train \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,20 @@
+\begin{table}[htbp]
+\centering
+\caption{Selected model complexity per horizon: modal selected depth and learning rate and median number of boosting rounds, aggregated over the walk-forward (tenor, regime) cells. Tuning-log sidecars are not present in this branch, so values are read from the complexity columns of \texttt{wf\_metrics\_long.csv} (\texttt{htb\_depth}/\texttt{htb\_ntrees} for HTBoost, internally chosen; \texttt{xgb\_*}/\texttt{cat\_*} for the grid-searched boosters). HTBoost's learning rate is the frozen $\lambda=0.10$.}
+\label{tab:app_selected}
+\footnotesize
+\begin{tabular}{lrrrrrrrr}
+\toprule
+\multicolumn{1}{c}{} & \multicolumn{2}{c}{HTBoost ($t$)} & \multicolumn{3}{c}{XGBoost} & \multicolumn{3}{c}{CatBoost} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-6} \cmidrule(lr){7-9}
+Horizon & depth & trees & depth & trees & lr & depth & trees & lr \\
+\midrule
+1d & 2 & 16 & 5 & 10 & 0.10 & 6 & 29 & 0.10 \\
+1w & 2 & 3 & 5 & 17 & 0.10 & 6 & 37 & 0.10 \\
+1m & 2 & 42 & 5 & 6 & 0.10 & 4 & 13 & 0.10 \\
+3m & 1 & 38 & 5 & 4 & 0.10 & 6 & 18 & 0.10 \\
+6m & 2 & 2 & 5 & 2 & 0.10 & 6 & 4 & 0.10 \\
+1y & 2 & 4 & 5 & 3 & 0.10 & 4 & 6 & 0.10 \\
+\bottomrule
+\end{tabular}
+\end{table}

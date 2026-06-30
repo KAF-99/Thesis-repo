@@ -1,0 +1,21 @@
+\begin{table}[htbp]
+\centering
+\caption{Engineered feature inventory by taxonomy bucket (\texttt{bucket\_feature}), counted from the realized model feature set recorded in the walk-forward importance sidecars. The cross-market block of 178 lagged foreign-curve levels and changes is PCA-compressed to twelve components (\texttt{xmpca\_01}--\texttt{12}); it is summarised, not enumerated.}
+\label{tab:app_features}
+\footnotesize
+\begin{tabular}{lrl}
+\toprule
+Bucket & \# features & Constituents \\
+\midrule
+curve & 7 & Slopes, MA deviations, level z-score, swap--IBOR basis \\
+momentum & 10 & AR lags $\Delta_1$--$\Delta_5$ and momentum 1m--12m \\
+vol & 11 & MOVE/VIX/V2X/OVX/GVZ levels \& z-scores, realised vol \\
+macro & 30 & Rates, breakevens, CPI/PCE, equities, commodities, FX \\
+credit & 4 & IG/HY spread levels and 1m changes \\
+cross\_market & 12 & 178 cross-market lagged levels+changes, PCA $\to$ 12 comps \\
+norway & 33 & Norges Bank/SSB/ECB/Riksbank: FX, policy, govt, CPI, LFS \\
+carry\_roll & 1 & Curve carry-and-roll term \\
+\midrule Total & 108 & realized model feature set (cross-market PCA-compressed) \\
+\bottomrule
+\end{tabular}
+\end{table}
