@@ -1,0 +1,19 @@
+\begin{table}[htbp]
+\centering
+\caption{Feature relevance by taxonomy bucket, as a share of each model's total relevance, averaged across horizons and walk-forward folds (HTBoost: native relevance bucketed by \texttt{bucket\_feature}; XGBoost: gain; CatBoost: prediction-values-change). The models disagree on the leading bucket (HTBoost $\to$ vol, XGBoost/CatBoost $\to$ macro).}
+\label{tab:is_relevance}
+\begin{tabular}{lrrr}
+\toprule
+Bucket & HTBoost & XGBoost & CatBoost \\
+\midrule
+curve & 0.070 & 0.183 & 0.110 \\
+momentum & 0.046 & 0.047 & 0.069 \\
+vol & 0.396 & 0.008 & 0.081 \\
+macro & 0.273 & 0.543 & 0.350 \\
+credit & 0.000 & 0.000 & 0.000 \\
+cross\_market & 0.059 & 0.014 & 0.046 \\
+norway & 0.147 & 0.195 & 0.324 \\
+carry\_roll & 0.009 & 0.010 & 0.022 \\
+\bottomrule
+\end{tabular}
+\end{table}
