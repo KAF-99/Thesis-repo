@@ -66,3 +66,6 @@ results/**/*.pkl
 results/**/_pilot/**
 /results/mean_reversion_v5_nor/mean_reversion_oos_predictions_universe.csv
 /results/momentum_v5_nor/momentum_oos_predictions_universe.csv
+
+# Pooled XGBoost per-obs preds pushed gzipped (.csv.gz); ignore the large uncompressed .csv
+results/xgboost_pooled_v5/xgb_pooled_*_preds_*.csv

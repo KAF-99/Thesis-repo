@@ -35,7 +35,9 @@ def _is_allowed(path, root):
     if not os.path.normcase(ap).startswith(os.path.normcase(results_root)):
         return False
     base = os.path.basename(ap)
-    return base.endswith(".csv") or base == "MANIFEST.md"
+    # .csv.gz allowed too: pooled per-obs preds exceed GitHub's 100 MB/file limit uncompressed,
+    # so they are pushed gzipped (pandas reads .csv.gz transparently).
+    return base.endswith(".csv") or base.endswith(".csv.gz") or base == "MANIFEST.md"
 
 
 def _run(root, *args):
