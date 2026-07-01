@@ -60,6 +60,7 @@ ch7_outputs/
 /results/**
 !/results/**/
 !/results/**/*.csv
+!/results/**/*.csv.gz
 !/results/MANIFEST.md
 # Belt-and-braces: never commit importance pickles or pilot scratch.
 results/**/*.pkl
