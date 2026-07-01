@@ -15,7 +15,9 @@ dependencies:
   - scikit-learn
   # XGBoost notebook (model_xgboost_v5_clean): xgboost for the model, shap for the
   # SHAP swarm/importance figures. Both from conda-forge to keep one OpenBLAS.
-  - xgboost
+  # Pinned to 3.2.0 — the version that produced the committed per-security xgb_* results
+  # (Marcus), so pooled-vs-per-security XGBoost comparisons hold the version fixed.
+  - xgboost=3.2.0
   - shap
   - statsmodels
   - matplotlib

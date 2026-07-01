@@ -60,9 +60,13 @@ ch7_outputs/
 /results/**
 !/results/**/
 !/results/**/*.csv
+!/results/**/*.csv.gz
 !/results/MANIFEST.md
 # Belt-and-braces: never commit importance pickles or pilot scratch.
 results/**/*.pkl
 results/**/_pilot/**
 /results/mean_reversion_v5_nor/mean_reversion_oos_predictions_universe.csv
 /results/momentum_v5_nor/momentum_oos_predictions_universe.csv
+
+# Pooled XGBoost per-obs preds pushed gzipped (.csv.gz); ignore the large uncompressed .csv
+results/xgboost_pooled_v5/xgb_pooled_*_preds_*.csv
